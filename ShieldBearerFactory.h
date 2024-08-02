@@ -3,12 +3,17 @@
 
 #include <iostream>
 #include "SoldierFactory.h"
+#include "ShieldBearer.h"
+#include "Soldiers.h"
 #include <string>
 
 class ShieldBearerFactory : public SoldierFactory 
 {
      public:
-     Soldiers* createUnit();
+     Soldiers* createUnit() override;
+
+
+     
      int calculateTotalHealthPerUnit();
      int calculateTotalDamagePerUnit();
      int calculateTotalDefencePerUnit();

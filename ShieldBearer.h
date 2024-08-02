@@ -9,12 +9,20 @@
 
 class ShieldBearer : public Soldiers
 {
+    public:
+
+    void createUnit() override ;
+
+    Soldiers* clonis() override;
+    
+    ShieldBearer( int damagePerSoldier , int defencePerSoldier  );
+
      private:
      int healthPerSoldier ;
      int damagePerSoldier;
      int defencePerSoldier;
     // int shieldCapacity;
-    int amountOfSoldiersPerUnit ;
+    int amountOfSoldiersPerUnit = 0 ;
     std::string unitName;
     
 };

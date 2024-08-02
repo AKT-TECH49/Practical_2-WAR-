@@ -7,12 +7,13 @@
 #include <vector>
 #include <string>
 #include "SoldierFactory.h"
-
+#include "Soldiers.h"
+#include "Boatman.h"
 
 class BoatmanFactory : public SoldierFactory 
 {
     public:
-     Soldiers* createUnit();
+     Soldiers* createUnit() override;
      int calculateTotalHealthPerUnit();
      int calculateTotalDamagePerUnit();
      int calculateTotalDefencePerUnit();
