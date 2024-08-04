@@ -2,9 +2,13 @@
 #define BOATMAN_H
 
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
+#include <map>
+#include <list>
 #include "Soldiers.h"
+
+class Map;
 
 class Boatman : public Soldiers 
 {
@@ -29,6 +33,10 @@ class Boatman : public Soldiers
 
         void prepare() override ;
         void execute() override;
+        void deployBomb(const std::string &bombType);
+        void provideBattleIntel();
+        void broadcastMessage(const std::string &message);
+        int calculateRepairAmount(int currentHealth);
         void retreat() override;
         void rest() override ;
     

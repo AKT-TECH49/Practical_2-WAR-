@@ -27,12 +27,12 @@ void Soldiers::disengage()
 Memento *Soldiers::militusMemento()
 {
     Memento* m = new Memento();
-    m->setState(this->state);//private
+    /*m->setState(this->state);*///private
     
     return m;
 }
 
 void Soldiers::vivificaMemento(Memento *memento)
 {
-    this->state = memento->getState();//private
+   /* this->state = memento->getState();*/  //private
 }

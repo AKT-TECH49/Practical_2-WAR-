@@ -31,6 +31,8 @@ class ShieldBearer : public Soldiers
 
         void prepare() override ;
         void execute() override;
+        void reinforceShields();
+        void phalanxCharge();
         void retreat() override;
         void rest() override ;
     
