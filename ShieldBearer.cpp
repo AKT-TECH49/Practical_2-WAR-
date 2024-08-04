@@ -9,6 +9,7 @@
 
 // }
 
+
 Soldiers *ShieldBearer::clonis()
 {
         //clone once 
@@ -21,4 +22,20 @@ ShieldBearer::ShieldBearer(int damagePerSoldier, int defencePerSoldier) : Soldie
     this->damagePerSoldier = damagePerSoldier;
     this->defencePerSoldier = defencePerSoldier;
     this->amountOfSoldiersPerUnit = amountOfSoldiersPerUnit + 1;
+}
+
+void ShieldBearer::prepare()
+{
+}
+
+void ShieldBearer::execute()
+{
+}
+
+void ShieldBearer::retreat()
+{
+}
+
+void ShieldBearer::rest()
+{
 }

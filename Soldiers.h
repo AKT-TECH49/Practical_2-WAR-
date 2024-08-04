@@ -8,24 +8,48 @@
 #include <iostream>
 #include <string>
 #include <list>
-
-
-class Soldiers//abstract 
+#include "Memento.h"
+class Memento;
+struct State
 {
-    public:
-        virtual void createUnit() = 0;
-        virtual Soldiers* clonis() = 0 ;
-        Soldiers(std::string unitName);
-
-        
-        
-    private:
-    int  healthPerSoldier ;
+    int healthPerSoldier;
     int damagePerSoldier;
-    int amountOfSoldiersPerUnit;
-   std::string  unitName;
-
+    int defencePerSoldier;
+    int amountOfSoldiersPerUnit ;
 };
 
+class Soldiers // abstract
+{
+public:
+    // virtual void createUnit() = 0;
+    virtual Soldiers *clonis() = 0;
+    Soldiers(std::string unitName);
+    virtual int getNumSoldiers() = 0;
+
+
+
+    //Template method:
+    //create template methods for engage() and disengage()
+    void engage();
+    void disengage();
+   // void attack(Soldiers *enemy);
+
+   //Memento method:
+    Memento* militusMemento() ;//create
+   void vivificaMemento(Memento* memento);//restore
+
+
+private:
+    int healthPerSoldier;
+    int damagePerSoldier;
+    int amountOfSoldiersPerUnit;
+    std::string unitName;
+    State state;
+    virtual void prepare() = 0;
+    virtual void execute() = 0;
+    virtual void retreat() =  0;
+    virtual void rest() = 0;
+   // virtual void displayInfo() const = 0;
+};
 
 #endif

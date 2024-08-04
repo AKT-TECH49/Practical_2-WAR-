@@ -6,3 +6,37 @@ Soldiers::Soldiers(std::string unitName)
     this->unitName= unitName;
     this->healthPerSoldier = 100;
 }
+
+int Soldiers::getNumSoldiers()
+{
+    //return 0;
+}
+
+void Soldiers::engage()
+{
+    //call prepare() and execute() methods
+    prepare();
+    execute();
+
+}
+
+void Soldiers::disengage()
+{
+    //call retreat() and rest() methods:
+    retreat();
+    rest();
+
+}
+
+Memento *Soldiers::militusMemento()
+{
+    Memento* m = new Memento();
+    m->setState(this->state);//private
+    
+    return m;
+}
+
+void Soldiers::vivificaMemento(Memento *memento)
+{
+    this->state = memento->getState();//private
+}

@@ -11,7 +11,7 @@ class ShieldBearer : public Soldiers
 {
     public:
 
-    void createUnit() override ;
+    //void createUnit() override ;
 
     Soldiers* clonis() override;
     
@@ -24,6 +24,12 @@ class ShieldBearer : public Soldiers
     // int shieldCapacity;
     int amountOfSoldiersPerUnit = 0 ;
     std::string unitName;
+
+     void prepare() override ;
+    void execute() override;
+    void retreat() override;
+    void rest() override ;
+    
     
 };
 

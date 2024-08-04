@@ -6,7 +6,7 @@
 
 class Infantry : public Soldiers {
 public:
-     void createUnit() override;
+     //void createUnit() override;
      
     Infantry(int damagePerSoldier , int defensePerSoldier );
     // ~Infantry();
@@ -19,6 +19,12 @@ public:
     int defensePerSoldier;
     int amountOfSoldiersPerUnit=0;
       //std::string  unitName;
+
+    void prepare() override ;
+    void execute() override;
+    void retreat() override;
+    void rest() override ;
+
 
 };
 

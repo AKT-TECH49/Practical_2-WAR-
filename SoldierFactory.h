@@ -5,14 +5,16 @@
 #include <string>
 #include "Soldiers.h"
 
-class Soldier;
+class Soldiers;
 
 class SoldierFactory //abstract class
 {
     private:
     Soldiers* soldier ;
+    
 
     protected:
+    virtual std::vector<Soldiers*> unit; //collection of soldiers per unit
     virtual Soldiers* createUnit() = 0;
     virtual int calculateTotalHealthPerUnit()=0;
     virtual int calculateTotalDamagePerUnit()=0;

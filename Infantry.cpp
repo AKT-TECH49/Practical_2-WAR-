@@ -15,3 +15,24 @@ Soldiers *Infantry::clonis()
     return clone;
     
 }
+
+void Infantry::prepare()
+{
+    //prepare method to be implemented 
+
+}
+
+void Infantry::execute()
+{
+    //execute method to be implemented
+}
+
+void Infantry::retreat()
+{
+    //retreat method to be implemented
+}
+
+void Infantry::rest()
+{
+    //rest method to be implemented
+}

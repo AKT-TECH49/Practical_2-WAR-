@@ -10,9 +10,10 @@ class Boatman : public Soldiers
 {
 
     public:
-    void createUnit() override ;
+    //void createUnit() override ;
     Boatman(int damagePerSoldier,
     int defensePerSoldier);
+    int get
 
    Soldiers * clonis() override;
 
@@ -24,6 +25,12 @@ class Boatman : public Soldiers
     int amountOfSoldiersPerUnit=0;
     //std::vector<std::string> unitNames;
     std::string unitName;
+
+     void prepare() override ;
+    void execute() override;
+    void retreat() override;
+    void rest() override ;
+    
 };
 
 

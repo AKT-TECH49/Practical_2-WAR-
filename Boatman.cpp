@@ -12,3 +12,19 @@ Soldiers *Boatman::clonis()
     Soldiers * clone = new Boatman(this->damagePerSoldier ,  this->defensePerSoldier);
     return clone;
 }
+
+void Boatman::prepare()
+{
+}
+
+void Boatman::execute()
+{
+}
+
+void Boatman::retreat()
+{
+}
+
+void Boatman::rest()
+{
+}
