@@ -10,25 +10,29 @@
 class ShieldBearer : public Soldiers
 {
     public:
-
-    //void createUnit() override ;
+        int getHealthPerSoldier() const;
+        int getDamagePerSoldier() const;
+        int getDefensePerSoldier() const;
+        int getAmountOfSoldiersPerUnit() const;
+        //void createUnit() override ;
 
     Soldiers* clonis() override;
     
     ShieldBearer( int damagePerSoldier , int defencePerSoldier  );
 
-     private:
-     int healthPerSoldier ;
-     int damagePerSoldier;
-     int defencePerSoldier;
-    // int shieldCapacity;
-    int amountOfSoldiersPerUnit = 0 ;
-    std::string unitName;
+    private:
+        static int totalShieldBearer;
+        int healthPerSoldier ;
+        int damagePerSoldier;
+        int defencePerSoldier;
+        // int shieldCapacity;
+        int amountOfSoldiersPerUnit = 0 ;
+        std::string unitName;
 
-     void prepare() override ;
-    void execute() override;
-    void retreat() override;
-    void rest() override ;
+        void prepare() override ;
+        void execute() override;
+        void retreat() override;
+        void rest() override ;
     
     
 };

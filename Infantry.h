@@ -12,12 +12,17 @@ public:
     // ~Infantry();
     // void attack(Soldiers* enemy) override;
     Soldiers * clonis() override;
+    int getHealthPerSoldier() const;
+    int getDamagePerSoldier() const;
+    int getDefensePerSoldier() const;
+    int getAmountOfSoldiersPerUnit() const;
 
     private:
-    int healthPerSoldier ;
-    int damagePerSoldier;
-    int defensePerSoldier;
-    int amountOfSoldiersPerUnit=0;
+      static int totalInfantry;
+      int healthPerSoldier ;
+      int damagePerSoldier;
+      int defensePerSoldier;
+      int amountOfSoldiersPerUnit;//might need to make it static
       //std::string  unitName;
 
     void prepare() override ;

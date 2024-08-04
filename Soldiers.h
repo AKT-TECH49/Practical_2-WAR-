@@ -24,9 +24,10 @@ public:
     // virtual void createUnit() = 0;
     virtual Soldiers *clonis() = 0;
     Soldiers(std::string unitName);
-    virtual int getNumSoldiers() = 0;
-
-
+    virtual int getHealthPerSoldier() const = 0;
+    virtual int getDamagePerSoldier() const = 0;
+    virtual int getDefensePerSoldier() const = 0;
+    virtual int getAmountOfSoldiersPerUnit() const = 0;
 
     //Template method:
     //create template methods for engage() and disengage()

@@ -28,6 +28,9 @@ void Memento::setState(State s)
 void Memento::setAtState(int index)
 {
     ///go back to  a specifc state from caretaker
+    
+    state = caretaker.get(index);
+
 }
 
 // constructor

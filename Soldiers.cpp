@@ -7,10 +7,6 @@ Soldiers::Soldiers(std::string unitName)
     this->healthPerSoldier = 100;
 }
 
-int Soldiers::getNumSoldiers()
-{
-    //return 0;
-}
 
 void Soldiers::engage()
 {

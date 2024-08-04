@@ -1,11 +1,12 @@
 #include "Infantry.h"
+int Infantry::totalInfantry = 0;
 
-Infantry::Infantry( int damagePerSoldier, int defensePerSoldier):Soldiers("Ifantry")
+Infantry::Infantry( int damagePerSoldier, int defensePerSoldier):Soldiers("Infantry")
 {
-    this->amountOfSoldiersPerUnit = amountOfSoldiersPerUnit+1;
+    totalInfantry++;
+    this->amountOfSoldiersPerUnit = totalInfantry;
     this->damagePerSoldier = damagePerSoldier;
     this->defensePerSoldier = defensePerSoldier;
-
 }
 
 Soldiers *Infantry::clonis()
@@ -14,6 +15,26 @@ Soldiers *Infantry::clonis()
     Soldiers * clone = new Infantry(this->damagePerSoldier , this->defensePerSoldier);
     return clone;
     
+}
+
+int Infantry::getHealthPerSoldier() const
+{
+   return this->healthPerSoldier;
+}
+
+int Infantry::getDamagePerSoldier() const
+{
+   return this->damagePerSoldier;
+}
+
+int Infantry::getDefensePerSoldier() const
+{
+   return this->defensePerSoldier;
+}
+
+int Infantry::getAmountOfSoldiersPerUnit() const
+{
+   return this->amountOfSoldiersPerUnit;
 }
 
 void Infantry::prepare()

@@ -8,28 +8,29 @@
 
 class Boatman : public Soldiers 
 {
-
     public:
-    //void createUnit() override ;
-    Boatman(int damagePerSoldier,
-    int defensePerSoldier);
-    int get
+        //void createUnit() override ;
+        Boatman(int damagePerSoldier, int defensePerSoldier);
+        Soldiers * clonis() override;
+        int getHealthPerSoldier() const;
+        int getDamagePerSoldier() const;
+        int getDefensePerSoldier() const;
+        int getAmountOfSoldiersPerUnit() const;
+        ~Boatman();
 
-   Soldiers * clonis() override;
+    private:
+        static int totalBoatmen;
+        int healthPerSoldier ;
+        int damagePerSoldier;
+        int defensePerSoldier;
+        int amountOfSoldiersPerUnit;
+        //std::vector<std::string> unitNames;
+        std::string unitName;
 
-
-    private :
-    int healthPerSoldier ;
-    int damagePerSoldier;
-    int defensePerSoldier;
-    int amountOfSoldiersPerUnit=0;
-    //std::vector<std::string> unitNames;
-    std::string unitName;
-
-     void prepare() override ;
-    void execute() override;
-    void retreat() override;
-    void rest() override ;
+        void prepare() override ;
+        void execute() override;
+        void retreat() override;
+        void rest() override ;
     
 };
 
