@@ -1,4 +1,4 @@
-a#ifndef INFANTRYFACTORY_H
+#ifndef INFANTRYFACTORY_H
 #define INFANTRYFACTORY_H
 
 #include <iostream>
