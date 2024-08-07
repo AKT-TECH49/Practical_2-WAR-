@@ -4,13 +4,12 @@
 #include <iostream>
 #include <vector>
 
-#include <SDL.h>
 #include "Map.h"
 
 class Graphics {
    public:
-      void drawMap(SDL_Renderer* renderer, const Map& map);
+      // void drawMap(SDL_Renderer* renderer, const Map& map);
 
-}
+};
 
-#endif;
+#endif

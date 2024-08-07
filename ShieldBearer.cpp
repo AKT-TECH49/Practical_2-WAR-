@@ -23,6 +23,8 @@ ShieldBearer::ShieldBearer(int damagePerSoldier, int defencePerSoldier) : Soldie
     totalShieldBearer++;
     this->damagePerSoldier = damagePerSoldier;
     this->defencePerSoldier = defencePerSoldier;
+    this->healthPerSoldier = 100;
+     std::cout<<"Soldiers constructor in ShieldBearer "<<healthPerSoldier<<std::endl;
     this->amountOfSoldiersPerUnit = totalShieldBearer;
 }
 

@@ -4,7 +4,7 @@ Soldiers::Soldiers(std::string unitName)
 {
     //THIS IS TO MAKE SURE WE KNOW WHICH TYPE OF SOLDIER WE ARE CREATING
     this->unitName= unitName;
-    this->healthPerSoldier = 100;
+    std::cout<<"Soldiers constructor"<<healthPerSoldier<<std::endl;
 }
 
 
@@ -26,13 +26,24 @@ void Soldiers::disengage()
 
 Memento *Soldiers::militusMemento()
 {
-    Memento* m = new Memento();
-    /*m->setState(this->state);*///private
-    
-    return m;
+
+   state.amountOfSoldiersPerUnit = getAmountOfSoldiersPerUnit();
+   state.damagePerSoldier = getDamagePerSoldier();
+   state.healthPerSoldier = getHealthPerSoldier();
+   state.defencePerSoldier = getDefensePerSoldier();
+
+return new Memento(state.healthPerSoldier, state.damagePerSoldier, state.defencePerSoldier, state.amountOfSoldiersPerUnit, unitName);
+
 }
 
 void Soldiers::vivificaMemento(Memento *memento)
 {
    /* this->state = memento->getState();*/  //private
+   State state = memento->getState();
+     healthPerSoldier = state.healthPerSoldier;
+    damagePerSoldier = state.damagePerSoldier;
+    defencePerSoldier = state.defencePerSoldier;
+    amountOfSoldiersPerUnit = state.amountOfSoldiersPerUnit;
+
+
 }

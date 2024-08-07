@@ -5,14 +5,16 @@
 #include <vector>
 #include "Infantry.h"
 #include "SoldierFactory.h"
+#include "Soldiers.h"
 
 class InfantryFactory : public SoldierFactory
 {
       public:
-      Soldiers* createUnit();
+      Soldiers* createUnit() override;
+
       int calculateTotalHealthPerUnit();
-      int calculateTotalDamagePerUnit();
-      int calculateTotalDefence();
+      int calculateTotalDamagePerUnit() ;
+      int calculateTotalDefencePerUnit();
 
 
     // Infantry* createInfantry(const std::string& type) {

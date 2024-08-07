@@ -40,8 +40,8 @@ int Boatman::getAmountOfSoldiersPerUnit() const
 
 Boatman::~Boatman()
 {
-    totalBoatmen--;
-    delete this;
+    // totalBoatmen--;
+    // delete this;
 }
 
 void Boatman::prepare()

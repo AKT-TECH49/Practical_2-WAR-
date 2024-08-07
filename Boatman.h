@@ -28,7 +28,6 @@ class Boatman : public Soldiers
         int damagePerSoldier;
         int defensePerSoldier;
         int amountOfSoldiersPerUnit;
-        //std::vector<std::string> unitNames;
         std::string unitName;
 
         void prepare() override ;

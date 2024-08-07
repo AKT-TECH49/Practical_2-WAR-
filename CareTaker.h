@@ -18,6 +18,7 @@ class CareTaker
     public:
     void addMemento( Memento* memento);
     Memento* getMemento(int index);
+    ~CareTaker();
 
 };
 

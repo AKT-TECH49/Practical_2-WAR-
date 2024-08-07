@@ -3,6 +3,7 @@
 
 Soldiers *InfantryFactory::createUnit()
 {
+   
     return new Infantry(100,80);
 }
 
@@ -18,7 +19,7 @@ int InfantryFactory::calculateTotalDamagePerUnit()
    return infantry->getDamagePerSoldier() * infantry->getAmountOfSoldiersPerUnit();
 }
 
-int InfantryFactory::calculateTotalDefence()
+int InfantryFactory::calculateTotalDefencePerUnit()
 {
    Infantry* infantry = static_cast<Infantry*>(createUnit());
    return infantry->getDefensePerSoldier() * infantry->getAmountOfSoldiersPerUnit();
