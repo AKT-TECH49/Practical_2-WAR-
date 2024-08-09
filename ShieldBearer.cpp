@@ -1,5 +1,6 @@
 #include "ShieldBearer.h"
-
+#include "Boatman.h"
+#include "Infantry.h"
 //create constructor
 
 // void ShieldBearer::createUnit(){
@@ -18,12 +19,18 @@ Soldiers *ShieldBearer::clonis()
     return clone;
 }
 
-ShieldBearer::ShieldBearer(int damagePerSoldier, int defencePerSoldier) : Soldiers("ShieldBearer")
+ShieldBearer::ShieldBearer(int damagePerSoldier, int defencePerSoldier) : Soldiers("ShieldBearer" , 0 )
 {
     totalShieldBearer++;
     this->damagePerSoldier = damagePerSoldier;
     this->defencePerSoldier = defencePerSoldier;
-    this->amountOfSoldiersPerUnit = totalShieldBearer;
+    this->healthPerSoldier = 100;
+    this->amountOfSoldiersPerUnit = amountOfSoldiersPerUnit + totalShieldBearer;
+}
+
+ShieldBearer::~ShieldBearer()
+{
+    delete this;
 }
 
 int ShieldBearer::getHealthPerSoldier() const
@@ -68,18 +75,11 @@ void ShieldBearer::reinforceShields()
 
     for (const auto& task : reinforcementTasks)
     {
-        std::cout << task.second << std::endl;
+        std::cout << "\t-"<<task.second << std::endl;
     }
 
     std::cout << "Shield reinforcement completed." << std::endl;
 }
-
-
-
-
-
-
-
 
 
 
@@ -99,7 +99,7 @@ void ShieldBearer::execute()
     }
     for (const auto& position : flankPositions)
     {
-        std::cout << "Shieldbearer at " << position.second << " holding the line." << std::endl;
+        std::cout << "\t- Shieldbearer at " << position.second << " holding the line." << std::endl;
     }
 
     // 2. Coordinating with Other Units?
@@ -107,7 +107,7 @@ void ShieldBearer::execute()
     std::vector<std::string> units = {"Infantry", "Archers"};
     for (const auto& unit : units)
     {
-        std::cout << "Shieldbearers coordinating with " << unit << "." << std::endl;
+        std::cout << "\t- Shieldbearers coordinating with " << unit << "." << std::endl;
     }
 
     // 3. Engaging Enemies
@@ -115,7 +115,7 @@ void ShieldBearer::execute()
     std::vector<std::string> enemies = {"Enemy Cavalry", "Enemy Infantry"};
     for (const auto& enemy : enemies)
     {
-        std::cout << "Shieldbearer engaging " << enemy << "." << std::endl;
+        std::cout << "\t- Shieldbearer engaging " << enemy << "." << std::endl;
     }
 
 
@@ -127,10 +127,6 @@ void ShieldBearer::execute()
     std::cout << "Shieldbearers have executed their battle plan." << std::endl;
 }
 
-
-
-
-
 void ShieldBearer::phalanxCharge()
 {  
     std::vector<std::string> actions = {
@@ -141,25 +137,11 @@ void ShieldBearer::phalanxCharge()
 
     for (const auto& action : actions)
     {
-        std::cout << action << std::endl;
+        std::cout << "\t-" << action << std::endl;
     }
 
     std::cout << "Phalanx Charge completed." << std::endl;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 void ShieldBearer::retreat()
@@ -173,4 +155,58 @@ void ShieldBearer::rest()
    this->healthPerSoldier += 30 ;
    this->defencePerSoldier += 10;
    std::cout<<"ShieldBearers are currently resting. "<<std::endl;
+}
+
+
+void ShieldBearer::Attack(Soldiers *shieldy)
+{
+    if(!shieldy || !shieldy->isAlive() )
+    {
+        std::cout << "ShieldBearer is not alive. Boatman cannot attack." << std::endl;
+        return;
+    }
+
+    double attStr;
+    attStr = damagePerSoldier / 2 ;  // per punch 
+    shieldy->takeDamage(attStr);
+  
+
+}
+
+// void ShieldBearer::Attack(Infantry* infantry)
+// {
+//     if(!infantry || !infantry->isAlive() )
+//     {
+//         std::cout << "Infantry is not alive. Boatman cannot attack." << std::endl;
+//         return;
+//     }
+
+//     double attStr;
+//     attStr = damagePerSoldier * 0.5 ;  // per punch 
+//     infantry->takeDamage(attStr);
+// }
+
+// void ShieldBearer::Attack(Boatman* boatman)
+// {
+//     if(!boatman || !boatman->isAlive() )
+//     {
+//         std::cout << "Boatman is not alive. Boatman cannot attack." << std::endl;
+//         return;
+//     }
+//     double attStr;
+//     attStr = damagePerSoldier /2 ;  // per punch
+//     boatman->takeDamage(attStr);
+
+// }
+
+bool ShieldBearer::isAlive()
+{
+    if(this->healthPerSoldier >0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

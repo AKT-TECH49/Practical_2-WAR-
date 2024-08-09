@@ -5,9 +5,9 @@
 
 class Map {
    public:
-      void initializeMapFromSVG(const std::string& svgFilePath);
+     // void initializeMapFromSVG(const std::string& svgFilePath);
 
 
-}
+};
 
 #endif

@@ -8,22 +8,21 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include "State.h"
 #include "Memento.h"
+
 class Memento;
-struct State
-{
-    int healthPerSoldier;
-    int damagePerSoldier;
-    int defencePerSoldier;
-    int amountOfSoldiersPerUnit ;
-};
+
 
 class Soldiers // abstract
 {
 public:
     // virtual void createUnit() = 0;
     virtual Soldiers *clonis() = 0;
-    Soldiers(std::string unitName);
+    Soldiers(std::string unitName, int amountOfSoldiersPerUnit );
+
+    virtual ~Soldiers();
+
     virtual int getHealthPerSoldier() const = 0;
     virtual int getDamagePerSoldier() const = 0;
     virtual int getDefensePerSoldier() const = 0;
@@ -40,17 +39,33 @@ public:
    void vivificaMemento(Memento* memento);//restore
 
 
+
+    //actions:
+    virtual void Attack(Soldiers* shieldB) = 0 ;
+    // virtual void Attack(Infantry* infaty) = 0 ;
+    // virtual void Attack(Boatman* boaty) = 0;
+    virtual bool isAlive() = 0 ;
+     bool takeDamage(int i);
+
+
 private:
+
     int healthPerSoldier;
     int damagePerSoldier;
     int amountOfSoldiersPerUnit;
+    int defencePerSoldier;
+
     std::string unitName;
     State state;
+
+
     virtual void prepare() = 0;
     virtual void execute() = 0;
     virtual void retreat() =  0;
     virtual void rest() = 0;
    // virtual void displayInfo() const = 0;
+
+
 };
 
 #endif

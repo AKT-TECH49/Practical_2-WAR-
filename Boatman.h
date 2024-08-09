@@ -20,7 +20,13 @@ class Boatman : public Soldiers
         int getDamagePerSoldier() const;
         int getDefensePerSoldier() const;
         int getAmountOfSoldiersPerUnit() const;
-        ~Boatman();
+        virtual ~Boatman();
+
+        void Attack(Soldiers* shieldy) override;
+        // void Attack(Infantry* infty) override;
+        // void Attack(Boatman* boaty) override;
+
+        bool isAlive() override;
 
     private:
         static int totalBoatmen;
@@ -28,7 +34,6 @@ class Boatman : public Soldiers
         int damagePerSoldier;
         int defensePerSoldier;
         int amountOfSoldiersPerUnit;
-        //std::vector<std::string> unitNames;
         std::string unitName;
 
         void prepare() override ;

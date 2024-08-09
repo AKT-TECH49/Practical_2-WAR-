@@ -1,9 +1,15 @@
 #include "Infantry.h"
+#include "ShieldBearer.h" 
+#include "Boatman.h"
+
+
+
 int Infantry::totalInfantry = 0;
 
-Infantry::Infantry(int damagePerSoldier, int defensePerSoldier) : Soldiers("Infantry")
+Infantry::Infantry(int damagePerSoldier, int defensePerSoldier) : Soldiers("Infantry" , 0)
 {
     totalInfantry++;
+    this->healthPerSoldier = 100;
     this->amountOfSoldiersPerUnit = totalInfantry;
     this->damagePerSoldier = damagePerSoldier;
     this->defensePerSoldier = defensePerSoldier;
@@ -45,67 +51,143 @@ int Infantry::calculateRepairAmount(int currentHealth)
 
 void Infantry::prepare()
 {
-    // prepare method to be implemented
-    std::cout << "Infantry is preparing to fight." << std::endl;
-    std::map<int, std::pair<std::string, std::string>> units;
-    for (int i = 0; i < 10; i++) // example unit count
+    std::cout << "Infantry unit is preparing for battle." << std::endl;
+
+    // Simulating equipment checks and formation setup
+    std::vector<std::string> equipment = {"Rifles", "Ammunition", "Grenades", "Medical Kits"};
+    std::cout << "Checking and distributing equipment:" << std::endl;
+    for (const auto &item : equipment)
     {
-        units[i] = std::make_pair("Infantry Soldier " + std::to_string(i + 1), "Shieldbear Soldier " + std::to_string(i + 1));
-        std::cout << units[i].first << " and " << units[i].second << " arrived at the battlefield." << std::endl;
+        std::cout << " - " << item << " checked and ready." << std::endl;
     }
-    std::cout << "Transportation completed." << std::endl;
 
-    // 2
-    std::cout << "Loading Equipment onto boats..." << std::endl;
-    std::vector<std::string> equipment = {"Weapons", "Shields", "Medical Supplies", "Rations"};
-    std::map<int, std::vector<std::string>> boatEquipment;
-    for (int i = 0; i < 10; i++)
+    std::cout << "Setting up defensive positions and scouting enemy locations." << std::endl;
+    std::map<std::string, std::string> positions = {
+        {"Alpha", "Frontline"}, {"Bravo", "Left flank"}, {"Charlie", "Right flank"}, {"Delta", "Reserve"}};
+    for (const auto &position : positions)
     {
-        boatEquipment[i] = equipment;
-        std::cout << "Boat " << i + 1 << " loaded with equipment." << std::endl;
+        std::cout << position.first << " team positioned at " << position.second << "." << std::endl;
     }
-    std::cout << "Equipment loading completed." << std::endl;
 
-    // 3
-    // position?
-    std::string position = "Pacific ocean";
-    // How can we possibly have a way for the Infantry to position himself?Using the graph class?
-    // std::cout << "Positioned Infantry at: " << position << std::endl;
-    // Using the Map class for positioning
-    // Map battlefieldMap;
-    // battlefieldMap.initializeMapFromSVG(/*add path to map.svg*/);
-
-    // 4
-    // check that there is no repairs of boats or equipment needed:
-    std::cout << "Checking and repairing boats and equipment..." << std::endl;
-    std::list<std::string> repairList = {"Infantry1", "Infantry3", "Infantry7"};                                                                           // How can we capture the boats???
-    std::map<std::string, int> Infantry = {{"Infantry1", 30}, {"Infantry2", 60}, {"Infantry3", 20}, {"Infantry4", 50}, {"Infantry9", 90}, {"Infantry10", 55}}; // has to be dynamic how can we modify it?
-
-    // 5
-    // signal communications or radio using flags and a list or vector or map to allow communication between Infantry:
-    std::cout << "Setting up communication channels..." << std::endl;
-    std::map<int, std::string> communications;
-    for (int i = 0; i < 10 /*amountOfSoldiersPerUnit?*/; i++)
-    {
-        communications[i] = "Channel " + std::to_string(i + 1);
-        std::cout << "Boat " << i + 1 << " communicating on " << communications[i] << "." << std::endl;
-    }
-    std::cout << "Communications setup completed." << std::endl;
-
-    std::cout << "Infantry is ready for battle." << std::endl;
+    // Simulating morale boost
+    std::cout << "Boosting morale with a motivational speech." << std::endl;
+    std::cout << "\"Remember, each one of us plays a crucial role. Stay sharp, stay focused, and we will succeed!\"" << std::endl;
 }
 
 void Infantry::execute()
 {
-    // execute method to be implemented
+    std::cout << "Infantry unit is executing battle plans." << std::endl;
+
+    // Coordinated attack
+    std::cout << "Launching coordinated assault on enemy positions." << std::endl;
+    std::vector<std::string> attackPhases = {"Suppressive fire", "Flanking maneuver", "Close-quarters combat"};
+    for (const auto &phase : attackPhases)
+    {
+        std::cout << " - " << phase << " initiated." << std::endl;
+    }
+
+    // Simulating battlefield communication
+    std::cout << "Communicating with command and allied units for support." << std::endl;
+    std::map<std::string, std::string> communications = {
+        {"HQ", "Requesting artillery support"}, {"Alpha", "Holding position"}, {"Bravo", "Advancing"}, {"Charlie", "Under heavy fire"}};
+    for (const auto &communication : communications)
+    {
+        std::cout << " - " << communication.first << ": " << communication.second << "." << std::endl;
+    }
+
+    // Simulating dynamic adjustments
+    std::cout << "Adjusting tactics based on battlefield conditions." << std::endl;
+    std::cout << " - Enemy flanking detected, repositioning units to counter." << std::endl;
 }
 
 void Infantry::retreat()
 {
-    // retreat method to be implemented
+    std::cout << "Infantry unit is retreating to a safer position." << std::endl;
+
+    // Simulating retreat tactics
+    std::vector<std::string> retreatPhases = {"Smoke grenades deployed", "Falling back under cover fire", "Regrouping at fallback position"};
+    for (const auto &phase : retreatPhases)
+    {
+        std::cout << " - " << phase << " executed." << std::endl;
+    }
+
+    // Assessing casualties and regrouping
+    std::cout << "Assessing casualties and regrouping units." << std::endl;
+    int casualties = rand() % 10; // Simulating random casualty count
+    std::cout << " - " << casualties << " soldiers lost. Regrouping remaining units." << std::endl;
 }
 
 void Infantry::rest()
 {
-    // rest method to be implemented
+    std::cout << "Infantry unit is resting and recuperating." << std::endl;
+
+    // Simulating health recovery
+    int recoveryAmount = 20;
+    healthPerSoldier += recoveryAmount;
+    if (healthPerSoldier > 100)
+    {
+        healthPerSoldier = 100;
+    }
+    std::cout << " - Soldiers' health increased by " << recoveryAmount << " points. Current health: " << healthPerSoldier << "." << std::endl;
+
+    // Simulating morale boost and maintenance
+    std::cout << "Boosting morale and performing equipment maintenance." << std::endl;
+    std::vector<std::string> maintenanceTasks = {"Cleaning weapons", "Replenishing supplies", "Medical checkups"};
+    for (const auto &task : maintenanceTasks)
+    {
+        std::cout << " - " << task << " completed." << std::endl;
+    }
+}
+
+
+void Infantry::Attack(Soldiers *shieldy)
+{
+    if(!shieldy || !shieldy->isAlive() )
+    {
+        std::cout << "ShieldBearer is not alive. Boatman cannot attack." << std::endl;
+        return;
+    }
+
+    double attStr;
+    attStr = damagePerSoldier / 2 ;  // per punch 
+    shieldy->takeDamage(attStr);
+
+}
+
+// void Infantry::Attack(Infantry* infantry)
+// {
+//     if(!infantry || !infantry->isAlive() )
+//     {
+//         std::cout << "Infantry is not alive. Boatman cannot attack." << std::endl;
+//         return;
+//     }
+
+//     double attStr;
+//     attStr = damagePerSoldier * 0.5 ;  // per punch 
+//     infantry->takeDamage(attStr);
+// }
+
+// void Infantry::Attack(Boatman* boatman)
+// {
+//     if(!boatman || !boatman->isAlive() )
+//     {
+//         std::cout << "Boatman is not alive. Boatman cannot attack." << std::endl;
+//         return;
+//     }
+//     double attStr;
+//     attStr = damagePerSoldier /2 ;  // per punch
+//     boatman->takeDamage(attStr);
+
+// }
+
+bool Infantry::isAlive()
+{
+    if(this->healthPerSoldier >0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

@@ -26,7 +26,7 @@ run: $(TARGET)
 
 # Run with gdb
 debug: $(TARGET)
-	gdb -ex run --args ./$(TARGET) 2>&1 | tee gdb_log.txt
+	gdb -ex run --args ./$(TARGET) | tee gdb_log.txt
 
 # Clean up the build files
 clean:

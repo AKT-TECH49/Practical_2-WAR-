@@ -2,39 +2,35 @@
 #define MEMENTO_H
 
 #include <iostream>
+#include "State.h"
 
-class Soldiers;
-struct State
+class Memento
 {
+public:
+    // Memento(State state);
+    Memento(int value1, int value2, int value3, int value4, std::string& value5);
+    State getState() const;
+
+    virtual ~Memento();
+    std::string getUnitName() const;
+
+private:
+    // store current state of soldiers
     int healthPerSoldier;
     int damagePerSoldier;
     int defencePerSoldier;
-    int amountOfSoldiersPerUnit ;
-};
-
-
-class Memento {
-public: //we want a function that returns a pointer to memento i.e) clone function
-Memento* clone() const;//gets state
+    int amountOfSoldiersPerUnit;
+    std::string unitName;
+    
+    State state;
     Memento();
 
 
 
-    private:
-    //store current state of soldiers
-    int healthPerSoldier;
-    int damagePerSoldier;
-    int defencePerSoldier;
-    int amountOfSoldiersPerUnit ;
-    std::string unitName;
-    State state;
-    State getState();
-    void setState(State s);
-    void setAtState(int index);
-    Memento(int value1 , int value2 , int value3,int value4 , std::string value5);
-
+    // void setState(State s);
+    // void setAtState(int index);
 
 
 };
 
-#endif //MEMENTO_H
+#endif // MEMENTO_H
