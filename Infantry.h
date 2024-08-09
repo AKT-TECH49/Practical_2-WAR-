@@ -23,6 +23,7 @@ public:
       int damagePerSoldier;
       int defensePerSoldier;
       int amountOfSoldiersPerUnit;//might need to make it static
+       int calculateRepairAmount(int currentHealth);
       //std::string  unitName;
 
     void prepare() override ;

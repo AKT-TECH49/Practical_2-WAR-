@@ -29,9 +29,3 @@ void Map::initializeMapFromSVG(const std::string& svgFilePath) {
         }
     }
 }
-
-bool Map::isPointInOcean(double x, double y) {
-    // Logic to determine if a point (x, y) is within ocean
-    // This can be based on checking against ocean polygons from the SVG
-    return false; // Example placeholder
-}
