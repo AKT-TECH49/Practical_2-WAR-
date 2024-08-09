@@ -46,6 +46,13 @@ int Infantry::getAmountOfSoldiersPerUnit()
     return this->amountOfSoldiersPerUnit;
 }
 
+int Infantry::calculateRepairAmount(int currentHealth)
+{
+    // calculate the amount of health needed to reach 100
+    return 100 - currentHealth;
+    // so we know to add what ever we have left to return to totalHealth of 100
+}
+
 void Infantry::subByOne()
 {
    this-> amountOfSoldiersPerUnit--;
