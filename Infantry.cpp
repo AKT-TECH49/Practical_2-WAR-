@@ -1,18 +1,22 @@
 #include "Infantry.h"
-#include "ShieldBearer.h" 
+#include "ShieldBearer.h"
 #include "Boatman.h"
 
 
 
-int Infantry::totalInfantry = 0;
+int Infantry::amountOfSoldiersPerUnit = 0;
 
-Infantry::Infantry(int damagePerSoldier, int defensePerSoldier) : Soldiers("Infantry" , 0)
+Infantry::Infantry(int damagePerSoldier, int defensePerSoldier) : Soldiers("Infantry")
 {
-    totalInfantry++;
     this->healthPerSoldier = 100;
-    this->amountOfSoldiersPerUnit = totalInfantry;
+    this->amountOfSoldiersPerUnit ++;
     this->damagePerSoldier = damagePerSoldier;
     this->defensePerSoldier = defensePerSoldier;
+}
+
+Infantry::~Infantry()
+{
+    delete this;
 }
 
 Soldiers *Infantry::clonis()
@@ -27,21 +31,25 @@ int Infantry::getHealthPerSoldier() const
     return this->healthPerSoldier;
 }
 
-int Infantry::getDamagePerSoldier() const
+int Infantry::getDamagePerSoldier()
 {
     return this->damagePerSoldier;
 }
 
-int Infantry::getDefensePerSoldier() const
+int Infantry::getDefensePerSoldier()
 {
     return this->defensePerSoldier;
 }
 
-int Infantry::getAmountOfSoldiersPerUnit() const
+int Infantry::getAmountOfSoldiersPerUnit()
 {
     return this->amountOfSoldiersPerUnit;
 }
 
+void Infantry::subByOne()
+{
+   this-> amountOfSoldiersPerUnit--;
+}
 void Infantry::prepare()
 {
     std::cout << "Infantry unit is preparing for battle." << std::endl;
@@ -132,50 +140,50 @@ void Infantry::rest()
     }
 }
 
-
 void Infantry::Attack(Soldiers *shieldy)
 {
-    if(!shieldy || !shieldy->isAlive() )
+    if (!shieldy || !shieldy->isAlive())
     {
-        std::cout << "ShieldBearer is not alive. Boatman cannot attack." << std::endl;
+        std::cout << "Infantry is not alive ,thus cannot attack." << std::endl;
         return;
     }
 
-    double attStr;
-    attStr = damagePerSoldier / 2 ;  // per punch 
-    shieldy->takeDamage(attStr);
+    double attStr, dmgNew;
+    attStr = shieldy->getDamagePerSoldier() / 2.5; // per punch
+    dmgNew = shieldy->getDamagePerSoldier() / 2;
 
+    shieldy->setHealthPerSoldier(attStr);
+    shieldy->setDefensePerSoldier(dmgNew);
+
+    std::cout << "Damage of enemy: " << shieldy->getDamagePerSoldier() << "\n";
+    std::cout << "Health of soldier : " << shieldy->getHealthPerSoldier() << "\n";
+    std::cout << "Defense of soldier : " << shieldy->getDefensePerSoldier() << "\n";
+    std::cout << "\n";
 }
 
-// void Infantry::Attack(Infantry* infantry)
-// {
-//     if(!infantry || !infantry->isAlive() )
-//     {
-//         std::cout << "Infantry is not alive. Boatman cannot attack." << std::endl;
-//         return;
-//     }
+void Infantry::setHealthPerSoldier(int i)
+{
+    this->healthPerSoldier -= i;
+}
 
-//     double attStr;
-//     attStr = damagePerSoldier * 0.5 ;  // per punch 
-//     infantry->takeDamage(attStr);
-// }
+void Infantry::setDamagePerSoldier(int i)
+{
+    this->damagePerSoldier = i;
+}
 
-// void Infantry::Attack(Boatman* boatman)
-// {
-//     if(!boatman || !boatman->isAlive() )
-//     {
-//         std::cout << "Boatman is not alive. Boatman cannot attack." << std::endl;
-//         return;
-//     }
-//     double attStr;
-//     attStr = damagePerSoldier /2 ;  // per punch
-//     boatman->takeDamage(attStr);
+void Infantry::setDefensePerSoldier(int i)
+{
+    this->defensePerSoldier = i;
+}
 
-// }
+void Infantry::setAmountOfSoldiersPerUnit(int i)
+{
+    this->amountOfSoldiersPerUnit = i;
+}
 
 bool Infantry::isAlive()
 {
-    if(this->healthPerSoldier >0)
+    if (this->healthPerSoldier > 0)
     {
         return true;
     }

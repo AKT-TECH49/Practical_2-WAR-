@@ -9,12 +9,14 @@ Soldiers * ShieldBearerFactory::createUnit()
 int ShieldBearerFactory::calculateTotalHealthPerUnit()
 {
    ShieldBearer* shieldBearer = static_cast<ShieldBearer*>(createUnit());
+   shieldBearer->subByOne();
    return shieldBearer->getHealthPerSoldier() * shieldBearer->getAmountOfSoldiersPerUnit();
 }
 
 int ShieldBearerFactory::calculateTotalDamagePerUnit()
 {
    ShieldBearer* shieldBearer = static_cast<ShieldBearer*>(createUnit());
+   shieldBearer->subByOne();
    return shieldBearer->getDamagePerSoldier() * shieldBearer->getAmountOfSoldiersPerUnit();
 }
 
@@ -22,5 +24,14 @@ int ShieldBearerFactory::calculateTotalDamagePerUnit()
 int ShieldBearerFactory::calculateTotalDefencePerUnit()
 {
    ShieldBearer* shieldBearer = static_cast<ShieldBearer*>(createUnit());
+   shieldBearer->subByOne();
    return shieldBearer->getDefensePerSoldier() * shieldBearer->getAmountOfSoldiersPerUnit();
+}
+
+
+int ShieldBearerFactory::calculateToTalNumUnits()
+{
+   ShieldBearer* shieldBearer = static_cast<ShieldBearer*>(createUnit());
+   shieldBearer->subByOne();
+   return shieldBearer->getAmountOfSoldiersPerUnit();
 }

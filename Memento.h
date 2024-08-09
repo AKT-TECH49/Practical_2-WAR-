@@ -8,7 +8,7 @@ class Memento
 {
 public:
     // Memento(State state);
-    Memento(int value1, int value2, int value3, int value4, std::string& value5);
+    Memento(int value1, int value2, int value3, int value4, std::string &value5);
     State getState() const;
 
     virtual ~Memento();
@@ -21,16 +21,12 @@ private:
     int defencePerSoldier;
     int amountOfSoldiersPerUnit;
     std::string unitName;
-    
+
     State state;
     Memento();
 
-
-
     // void setState(State s);
     // void setAtState(int index);
-
-
 };
 
 #endif // MEMENTO_H

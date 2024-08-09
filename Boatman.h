@@ -10,44 +10,54 @@
 
 class Map;
 
-class Boatman : public Soldiers 
+class Boatman : public Soldiers
 {
-    public:
-        //void createUnit() override ;
-        Boatman(int damagePerSoldier, int defensePerSoldier);
-        Soldiers * clonis() override;
-        int getHealthPerSoldier() const;
-        int getDamagePerSoldier() const;
-        int getDefensePerSoldier() const;
-        int getAmountOfSoldiersPerUnit() const;
-        virtual ~Boatman();
+public:
 
-        void Attack(Soldiers* shieldy) override;
-        // void Attack(Infantry* infty) override;
-        // void Attack(Boatman* boaty) override;
+  Boatman(int damagePerSoldier, int defensePerSoldier);
+  void createUnit();
+  Boatman();
+  virtual ~Boatman();
 
-        bool isAlive() override;
+  Soldiers *clonis() override;
 
-    private:
-        static int totalBoatmen;
-        int healthPerSoldier ;
-        int damagePerSoldier;
-        int defensePerSoldier;
-        int amountOfSoldiersPerUnit;
-        std::string unitName;
+  //getters
+  int getHealthPerSoldier() const;
+  int getDamagePerSoldier();
+  int getDefensePerSoldier();
+  int getAmountOfSoldiersPerUnit();
 
-        void prepare() override ;
-        void execute() override;
-        void deployBomb(const std::string &bombType);
-        void provideBattleIntel();
-        void broadcastMessage(const std::string &message);
-        int calculateRepairAmount(int currentHealth);
-        void retreat() override;
-        void rest() override ;
-    
+  // setters
+  void setHealthPerSoldier(int i) override;
+  void setDamagePerSoldier(int i) override;
+  void setDefensePerSoldier(int i) override;
+  void setAmountOfSoldiersPerUnit(int i) override;
+
+
+  //action
+  void Attack(Soldiers *shieldy) override;
+  bool takeDamage(Boatman *boat, int i);
+  void subByOne();
+  bool isAlive() override;
+
+  private:
+  int healthPerSoldier;
+  int damagePerSoldier;
+  int defensePerSoldier;
+  static int amountOfSoldiersPerUnit;
+  std::string unitName;
+
+
+  void prepare() override;
+  void execute() override;
+  void retreat() override;
+  void rest() override;
+
+  //helpers
+  int calculateRepairAmount(int currentHealth);
+
+
+
 };
-
-
-
 
 #endif

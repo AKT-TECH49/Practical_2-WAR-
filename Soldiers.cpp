@@ -1,10 +1,9 @@
 #include "Soldiers.h"
 
-Soldiers::Soldiers(std::string unitName, int amountOfSoldiersPerUnit)
+Soldiers::Soldiers(std::string unitName)
 {
     // THIS IS TO MAKE SURE WE KNOW WHICH TYPE OF SOLDIER WE ARE CREATING
     this->unitName = unitName;
-    this->amountOfSoldiersPerUnit++;
 }
 
 Soldiers::~Soldiers()
@@ -46,61 +45,4 @@ void Soldiers::vivificaMemento(Memento *memento)
     damagePerSoldier = state.damagePerSoldier;
     defencePerSoldier = state.defencePerSoldier;
     amountOfSoldiersPerUnit = state.amountOfSoldiersPerUnit;
-}
-
-bool Soldiers::takeDamage(int i)
-{
-    if (getDefensePerSoldier() > 0)
-    {
-        int damageAfterDefense = i - getDefensePerSoldier();
-        if (damageAfterDefense > 0)
-        {
-            this->defencePerSoldier = 0;
-            this->healthPerSoldier -= damageAfterDefense;
-        }
-        else
-        {
-            this->defencePerSoldier -= i;
-        }
-        std::cout << defencePerSoldier << " after defense reduction.\n";
-        std::cout << healthPerSoldier << " after health reduction.\n";
-        return true;
-    }
-    else if (getHealthPerSoldier() > 0)
-    {
-        this->healthPerSoldier -= i;
-        std::cout << healthPerSoldier << " after health reduction.\n";
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
-    // if (defencePerSoldier > 0)
-    // {
-    //     int damageAfterDefense = i - defencePerSoldier;
-    //     if (damageAfterDefense > 0)
-    //     {
-    //         defencePerSoldier = 0;
-    //         healthPerSoldier -= damageAfterDefense;
-    //     }
-    //     else
-    //     {
-    //         defencePerSoldier -= i;
-    //     }
-    //     std::cout << defencePerSoldier << " after defense reduction.\n";
-    //     std::cout << healthPerSoldier << " after health reduction.\n";
-    //     return true;
-    // }
-    // else if (healthPerSoldier > 0)
-    // {
-    //     healthPerSoldier -= i;
-    //     std::cout << healthPerSoldier << " after health reduction.\n";
-    //     return true;
-    // }
-    // else
-    // {
-    //     return false;
-    // }
 }
