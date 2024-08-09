@@ -20,7 +20,13 @@ class Boatman : public Soldiers
         int getDamagePerSoldier() const;
         int getDefensePerSoldier() const;
         int getAmountOfSoldiersPerUnit() const;
-        ~Boatman();
+        virtual ~Boatman();
+
+        void Attack(Soldiers* shieldy) override;
+        // void Attack(Infantry* infty) override;
+        // void Attack(Boatman* boaty) override;
+
+        bool isAlive() override;
 
     private:
         static int totalBoatmen;

@@ -1,7 +1,12 @@
 #include "Infantry.h"
+#include "ShieldBearer.h" 
+#include "Boatman.h"
+
+
+
 int Infantry::totalInfantry = 0;
 
-Infantry::Infantry(int damagePerSoldier, int defensePerSoldier) : Soldiers("Infantry")
+Infantry::Infantry(int damagePerSoldier, int defensePerSoldier) : Soldiers("Infantry" , 0)
 {
     totalInfantry++;
     this->healthPerSoldier = 100;
@@ -124,5 +129,58 @@ void Infantry::rest()
     for (const auto &task : maintenanceTasks)
     {
         std::cout << " - " << task << " completed." << std::endl;
+    }
+}
+
+
+void Infantry::Attack(Soldiers *shieldy)
+{
+    if(!shieldy || !shieldy->isAlive() )
+    {
+        std::cout << "ShieldBearer is not alive. Boatman cannot attack." << std::endl;
+        return;
+    }
+
+    double attStr;
+    attStr = damagePerSoldier / 2 ;  // per punch 
+    shieldy->takeDamage(attStr);
+
+}
+
+// void Infantry::Attack(Infantry* infantry)
+// {
+//     if(!infantry || !infantry->isAlive() )
+//     {
+//         std::cout << "Infantry is not alive. Boatman cannot attack." << std::endl;
+//         return;
+//     }
+
+//     double attStr;
+//     attStr = damagePerSoldier * 0.5 ;  // per punch 
+//     infantry->takeDamage(attStr);
+// }
+
+// void Infantry::Attack(Boatman* boatman)
+// {
+//     if(!boatman || !boatman->isAlive() )
+//     {
+//         std::cout << "Boatman is not alive. Boatman cannot attack." << std::endl;
+//         return;
+//     }
+//     double attStr;
+//     attStr = damagePerSoldier /2 ;  // per punch
+//     boatman->takeDamage(attStr);
+
+// }
+
+bool Infantry::isAlive()
+{
+    if(this->healthPerSoldier >0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }

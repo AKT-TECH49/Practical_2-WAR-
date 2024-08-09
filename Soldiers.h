@@ -19,9 +19,9 @@ class Soldiers // abstract
 public:
     // virtual void createUnit() = 0;
     virtual Soldiers *clonis() = 0;
-    Soldiers(std::string unitName );
+    Soldiers(std::string unitName, int amountOfSoldiersPerUnit );
 
-
+    virtual ~Soldiers();
 
     virtual int getHealthPerSoldier() const = 0;
     virtual int getDamagePerSoldier() const = 0;
@@ -39,7 +39,17 @@ public:
    void vivificaMemento(Memento* memento);//restore
 
 
+
+    //actions:
+    virtual void Attack(Soldiers* shieldB) = 0 ;
+    // virtual void Attack(Infantry* infaty) = 0 ;
+    // virtual void Attack(Boatman* boaty) = 0;
+    virtual bool isAlive() = 0 ;
+     bool takeDamage(int i);
+
+
 private:
+
     int healthPerSoldier;
     int damagePerSoldier;
     int amountOfSoldiersPerUnit;

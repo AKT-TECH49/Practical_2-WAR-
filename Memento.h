@@ -11,6 +11,7 @@ public:
     Memento(int value1, int value2, int value3, int value4, std::string& value5);
     State getState() const;
 
+    virtual ~Memento();
     std::string getUnitName() const;
 
 private:
