@@ -7,12 +7,19 @@
 
 class ShieldBearer : public Soldiers
 {
-    public:
-        int getHealthPerSoldier() const;
-        int getDamagePerSoldier() const;
-        int getDefensePerSoldier() const;
-        int getAmountOfSoldiersPerUnit() const;
-        // void createUnit() override ;
+public:
+    int getHealthPerSoldier() const;
+    int getDamagePerSoldier();
+    int getDefensePerSoldier();
+    int getAmountOfSoldiersPerUnit();
+    void subByOne();
+
+
+    // setters
+    void setHealthPerSoldier(int health) override;
+    void setDamagePerSoldier(int damage) override;
+    void setDefensePerSoldier(int defense) override;
+    void setAmountOfSoldiersPerUnit(int i) override;
 
         Soldiers *clonis() override;
         ShieldBearer(int damagePerSoldier, int defencePerSoldier);
@@ -21,15 +28,14 @@ class ShieldBearer : public Soldiers
         void Attack(Soldiers &shieldy) override;
         bool isAlive() override;
 
-
-    private:
-        static int totalShieldBearer;
-        int healthPerSoldier;
-        int damagePerSoldier;
-        int defencePerSoldier;
-        // int shieldCapacity;
-        int amountOfSoldiersPerUnit = 0;
-        std::string unitName;
+private:
+    static int totalShieldBearer;
+    int healthPerSoldier;
+    int damagePerSoldier;
+    int defencePerSoldier;
+    // int shieldCapacity;
+    static int amountOfSoldiersPerUnit;
+    std::string unitName;
 
         void prepare() override;
         void execute() override;

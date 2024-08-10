@@ -17,8 +17,7 @@ class BoatmanFactory : public SoldierFactory
      int calculateTotalHealthPerUnit();
      int calculateTotalDamagePerUnit();
      int calculateTotalDefencePerUnit();
-     ~BoatmanFactory();
-
+     int calculateTotalNumOfUnits();
 };
 
 

@@ -9,13 +9,14 @@
 
 class InfantryFactory : public SoldierFactory
 {
-      public:
-      Soldiers* createUnit() override;
-      ~InfantryFactory();
+public:
+  Soldiers *createUnit() override;
 
-      int calculateTotalHealthPerUnit();
-      int calculateTotalDamagePerUnit() ;
-      int calculateTotalDefencePerUnit();
+//calculatiosns
+  int calculateTotalHealthPerUnit();
+  int calculateTotalDamagePerUnit();
+  int calculateTotalDefencePerUnit();
+  int calculateTotalNumOfUnits();
 };
 
 #endif // INFANTRYFACTORY_H

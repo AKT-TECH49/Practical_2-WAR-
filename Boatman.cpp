@@ -6,15 +6,14 @@
 #include <string>
 #include <iostream>
 
-int Boatman::totalBoatmen = 0;
+int Boatman::amountOfSoldiersPerUnit = 0;
 
-Boatman::Boatman(int damagePerSoldier, int defensePerSoldier) : Soldiers("BoatMan" , 0)
+Boatman::Boatman(int damagePerSoldier, int defensePerSoldier) : Soldiers("BoatMan")
 {
-    this->amountOfSoldiersPerUnit = amountOfSoldiersPerUnit + totalBoatmen;
-    totalBoatmen++;
+    this->amountOfSoldiersPerUnit ++;
     this->damagePerSoldier = damagePerSoldier;
     this->defensePerSoldier = defensePerSoldier;
-    this->healthPerSoldier  = 100;
+    this->healthPerSoldier = 100;
 }
 
 Soldiers *Boatman::clonis()
@@ -28,74 +27,76 @@ int Boatman::getHealthPerSoldier() const
     return this->healthPerSoldier;
 }
 
-int Boatman::getDamagePerSoldier() const
+int Boatman::getDamagePerSoldier()
 {
     return this->damagePerSoldier;
 }
 
-int Boatman::getDefensePerSoldier() const
+int Boatman::getDefensePerSoldier()
 {
     return this->defensePerSoldier;
 }
 
-int Boatman::getAmountOfSoldiersPerUnit() const
+int Boatman::getAmountOfSoldiersPerUnit()
 {
     return this->amountOfSoldiersPerUnit;
 }
 
-
 Boatman::~Boatman()
 {
-    totalBoatmen--;
-    this->amountOfSoldiersPerUnit = amountOfSoldiersPerUnit - 1;
-    std::cout << "Deleting boat \n";
     delete this;
 }
 
 void Boatman::Attack(Soldiers &shieldy)
 {
-    if(!shieldy.isAlive() )
+
+    if (!shieldy || !shieldy->isAlive())
     {
-        std::cout << "ShieldBearer is not alive. Boatman cannot attack." << std::endl;
+        std::cout << "Boatman is not alive,thus cannot attack." << std::endl;
         return;
     }
 
-    int attStr;
-    attStr = this->getDamagePerSoldier() / 2 ;  // per punch 
-    shieldy.takeDamage(attStr);
+    double attStr, dmgNew;
+    attStr = shieldy->getDamagePerSoldier() / 2.5; // per punch
+    dmgNew = shieldy->getDamagePerSoldier() / 2;
 
+    shieldy->setHealthPerSoldier(attStr);
+    shieldy->setDefensePerSoldier(dmgNew);
 
+    std::cout << "Damage of enemy: " << shieldy->getDamagePerSoldier() << "\n";
+    std::cout << "Health of soldier : " << shieldy->getHealthPerSoldier() << "\n";
+    std::cout << "Defense of soldier : " << shieldy->getDefensePerSoldier() << "\n";
+    std::cout << "\n";
 }
 
-// void Boatman::Attack(Infantry* infantry)
-// {
-//     if(!infantry || !infantry->isAlive() )
-//     {
-//         std::cout << "Infantry is not alive. Boatman cannot attack." << std::endl;
-//         return;
-//     }
+// settter
+void Boatman::setHealthPerSoldier(int i)
+{
+    this->healthPerSoldier = this->healthPerSoldier - i;
+}
 
-//     double attStr;
-//     attStr = damagePerSoldier * 0.5 ;  // per punch 
-//     infantry->takeDamage(attStr);
-// }
+void Boatman::setDamagePerSoldier(int i)
+{
+    this->damagePerSoldier = i;
+}
 
-// void Boatman::Attack(Boatman* boatman)
-// {
-//     if(!boatman || !boatman->isAlive() )
-//     {
-//         std::cout << "Boatman is not alive. Boatman cannot attack." << std::endl;
-//         return;
-//     }
-//     double attStr;
-//     attStr = damagePerSoldier /2 ;  // per punch
-//     boatman->takeDamage(attStr);
+void Boatman::setDefensePerSoldier(int i)
+{
+    this->defensePerSoldier -= i;
+}
 
-// }
+void Boatman::setAmountOfSoldiersPerUnit(int i)
+{
+    this->amountOfSoldiersPerUnit = i;
+}
 
+void Boatman::subByOne()
+{
+    this->amountOfSoldiersPerUnit--;
+}
 bool Boatman::isAlive()
 {
-    if(this->healthPerSoldier >0)
+    if (this->healthPerSoldier > 0)
     {
         return true;
     }
@@ -164,7 +165,6 @@ void Boatman::prepare()
     std::cout << "Communications setup completed." << std::endl;
 
     std::cout << "Boatman is ready for battle." << std::endl;
-
 }
 
 int Boatman::calculateRepairAmount(int currentHealth)
@@ -176,22 +176,22 @@ int Boatman::calculateRepairAmount(int currentHealth)
 
 void Boatman::execute()
 {
-    //I'm thinking that the boatMan can also be more invloved we can allow them to deploy bombs to the enemy at sea
-    // and also use their position to help them with their battle plans
-    // but I'm not sure how to implement this without creating additional classes for each action
-    // and also how to allow them to deploy bombs without creating additional classes for each bomb
-    // and also how to handle the communication between boatmen without creating additional classes for each communication
-    // and also how to handle the retreat without creating additional classes for each retreat
-    // and also how to handle the rest without creating additional classes for each rest
-     std::cout << "Boatman is executing battle plans." << std::endl;
-    
+    // I'm thinking that the boatMan can also be more invloved we can allow them to deploy bombs to the enemy at sea
+    //  and also use their position to help them with their battle plans
+    //  but I'm not sure how to implement this without creating additional classes for each action
+    //  and also how to allow them to deploy bombs without creating additional classes for each bomb
+    //  and also how to handle the communication between boatmen without creating additional classes for each communication
+    //  and also how to handle the retreat without creating additional classes for each retreat
+    //  and also how to handle the rest without creating additional classes for each rest
+    std::cout << "Boatman is executing battle plans." << std::endl;
+
     // Deploying bombs to the enemy at sea
     std::cout << "Deploying bombs to enemy positions." << std::endl;
     std::map<int, std::pair<std::string, int>> bombDeployment; // <Boat ID, <Target Area, Bomb Count>>
-    for (int i = 0; i < 5; i++) // example bomb deployment count
+    for (int i = 0; i < 5; i++)                                // example bomb deployment count
     {
         bombDeployment[i] = std::make_pair("Enemy Ship " + std::to_string(i + 1), 3); // Each boat deploys 3 bombs
-        std::cout << "\t- Boat "<< i + 1 << " deployed 3 bombs to " << bombDeployment[i].first << "." << std::endl;
+        std::cout << "\t- Boat " << i + 1 << " deployed 3 bombs to " << bombDeployment[i].first << "." << std::endl;
     }
     std::cout << "Bomb deployment completed." << std::endl;
 
@@ -201,7 +201,7 @@ void Boatman::execute()
     for (int i = 0; i < 10; i++)
     {
         strategicPositions[i] = "Position " + std::to_string(i + 1);
-        std::cout <<"\t- Boat "<< i + 1 << " at " << strategicPositions[i] << " providing cover fire." << std::endl;
+        std::cout << "\t- Boat " << i + 1 << " at " << strategicPositions[i] << " providing cover fire." << std::endl;
     }
     std::cout << "Strategic positioning completed." << std::endl;
 
@@ -225,102 +225,17 @@ void Boatman::execute()
     }
     std::cout << "Support signaling completed." << std::endl;
 
-
-
     std::cout << "Boatman has executed all battle plans." << std::endl;
-
 }
-
-//ORRRR:
-
-// void Boatman::deployBomb(const std::string& bombType)
-// {
-//     std::cout << "Deploying " << bombType << "." << std::endl;
-//     if (bombType == "Depth Charge")
-//     {
-//         std::cout << "Depth Charge deployed against enemy submarines." << std::endl;
-//     }
-//     else if (bombType == "Fire Barrel")
-//     {
-//         std::cout << "Fire Barrel thrown at enemy ships." << std::endl;
-//     }
-//     else if (bombType == "Explosive Harpoon")
-//     {
-//         std::cout << "Explosive Harpoon launched from boat-mounted ballista." << std::endl;
-//     }
-//     else
-//     {
-//         std::cout << "Unknown bomb type: " << bombType << std::endl;
-//     }
-// }
-
-// void Boatman::provideBattleIntel()
-// {
-//     std::cout << "Providing battle intelligence." << std::endl;
-//     std::cout << "Scouting enemy movements and reporting positions." << std::endl;
-//     std::cout << "Relaying information to other units using signal flags." << std::endl;
-//     std::cout << "Advising on coastal features, tides, and hidden dangers." << std::endl;
-// }
-
-// void Boatman::broadcastMessage(const std::string& message)
-// {
-//     std::cout << "Broadcasting message: " << message << std::endl;
-//     //create a series of switch cases of plausable broad casting messages:
-//     // e.g., "Enemy Submarine 1 is moving towards our position."
-//     // e.g., "Fire Barrel in position X at 10 meters away."
-//     // e.g., "Signaling for reinforcement at Position Y."
-//     // e.g., "Enemy Ship 1 is under attack. Please retreat."
-//     // etc.
-//     // and then we could have a function that takes a boatman ID and a message and sends it to all other boatmen in the same unit.
-//      for (int i = 1; i <= totalBoatmen; ++i)
-//     {
-//         std::cout << "Sending message to Boatman " << i << ": " << message << std::endl;
-//     }//idea nje
-
-// }
-
-// void Boatman::execute()
-// {
-//     std::cout << "Boatman is executing battle plans." << std::endl;
-
-//     // Deploying bombs to the enemy at sea
-//     deployBomb("Depth Charge");
-//     deployBomb("Fire Barrel");
-//     deployBomb("Explosive Harpoon");
-
-//     // Using positions for strategic advantage
-//     provideBattleIntel();
-
-//     // Coordinating attacks with communication channels
-//     broadcastMessage("Attack on Enemy Ship 1");
-
-//     // how can we alllow signaling for support and reinforcements?
-//     // if(Boatman[boat1] calls Boatman[boat6])
-//     // {std::cout << "Signaling for support and reinforcements." << std::endl;
-//     // //then we send boatman to go help but how?
-
-//     // }
-
-
-
-
-
-
-//     std::cout << "Boatman execution complete." << std::endl;
-// }
-
-
 
 void Boatman::retreat()
 {
     std::cout << "Boatman is retreating." << std::endl;
-    // How can we possibly have a way for the BoatMan to retreat?
-    // Should it be that thing of we remove the BoatMan from where they were positioned in the prepare function?
+
 }
 
 void Boatman::rest()
-{
-    // recharge health
+{   // recharge health
     this->healthPerSoldier += 10;
     std::cout << "Boatman is resting." << std::endl;
 }

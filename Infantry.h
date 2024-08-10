@@ -6,36 +6,47 @@
 class Infantry : public Soldiers
 {
 public:
-  // void createUnit() override;
-
   Infantry(int damagePerSoldier, int defensePerSoldier);
   ~Infantry();
   // void attack(Soldiers* enemy) override;
   Soldiers *clonis() override;
-  int getHealthPerSoldier() const;
-  int getDamagePerSoldier() const;
-  int getDefensePerSoldier() const;
-  int getAmountOfSoldiersPerUnit() const;
 
-  int calculateRepairAmount(int currentHealth);
+  //getters
+  int getHealthPerSoldier() const ;
+  int getDamagePerSoldier() ;
+  int getDefensePerSoldier();
+  int getAmountOfSoldiersPerUnit();
+  void subByOne();
 
-  void Attack(Soldiers &shieldy) override;
-  // void Attack(Infantry *infantry) override;
-  // void Attack(Boatman *boatman) override;
+
+  //Setters
+  void setHealthPerSoldier(int i) override;
+  void setDamagePerSoldier(int i ) override ;
+  void setDefensePerSoldier(int i ) override ;
+  void setAmountOfSoldiersPerUnit(int i) override ;
+
+
+
+//action
+  void Attack(Soldiers *shieldy) override;
   bool isAlive() override;
 
+
 private:
-  static int totalInfantry;
   int healthPerSoldier;
   int damagePerSoldier;
   int defensePerSoldier;
-  int amountOfSoldiersPerUnit; // might need to make it static
-  // std::string  unitName;
+  static int amountOfSoldiersPerUnit;
+  std::string unitName ;
+
+
 
   void prepare() override;
   void execute() override;
   void retreat() override;
   void rest() override;
+
+  
 };
 
 #endif

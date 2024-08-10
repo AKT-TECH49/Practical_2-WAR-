@@ -1,36 +1,35 @@
 #include "BoatmanFactory.h"
 
-Soldiers * BoatmanFactory::createUnit()
+Soldiers *BoatmanFactory::createUnit()
 {
-   return new Boatman(75,75);
+
+   return new Boatman(75, 75);
 }
 
 int BoatmanFactory::calculateTotalHealthPerUnit()
 {
-   //Boatman* boatman = static_cast<Boatman*>(createUnit());
-
-   Soldiers* boatman = createUnit();
-   // std::cout << "Health:\n" << boatman->getHealthPerSoldier() << std::endl;
-   
-   // std::cout << "No of soldiers:\n" << boatman->getAmountOfSoldiersPerUnit() << std::endl;
-
-
+   Boatman *boatman = static_cast<Boatman *>(createUnit());
+   boatman->subByOne();
    return boatman->getHealthPerSoldier() * boatman->getAmountOfSoldiersPerUnit();
 }
 
 int BoatmanFactory::calculateTotalDamagePerUnit()
 {
-   Boatman* boatman = static_cast<Boatman*>(createUnit());
-    return boatman->getDamagePerSoldier() * boatman->getAmountOfSoldiersPerUnit();
+   Boatman *boatman = static_cast<Boatman *>(createUnit());
+   boatman->subByOne();
+   return boatman->getDamagePerSoldier() * boatman->getAmountOfSoldiersPerUnit();
 }
 
 int BoatmanFactory::calculateTotalDefencePerUnit()
 {
-   Boatman* boatman = static_cast<Boatman*>(createUnit());
+   Boatman *boatman = static_cast<Boatman *>(createUnit());
+   boatman->subByOne();
    return boatman->getDefensePerSoldier() * boatman->getAmountOfSoldiersPerUnit();
 }
 
-BoatmanFactory::~BoatmanFactory()
+int BoatmanFactory::calculateTotalNumOfUnits()
 {
-   //delete this;
+   Boatman *boatman = static_cast<Boatman *>(createUnit());
+   boatman->subByOne();
+   return boatman->getAmountOfSoldiersPerUnit();
 }
