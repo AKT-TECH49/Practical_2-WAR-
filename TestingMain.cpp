@@ -7,6 +7,10 @@
 #include "InfantryFactory.h"
 #include "Boatman.h"
 #include "BoatmanFactory.h"
+#include "Memento.h"
+#include "CareTaker.h"
+
+using namespace std;
 
 void TestShieldBearer();
 void TestInfantry();
@@ -14,12 +18,103 @@ void TestBoatman();
 
 void TestAttacks();
 
+
+void testCalculateFunctions() {
+    //InfantryFactory infantryFactory;
+    // ShieldBearerFactory shieldBearerFactory;
+    BoatmanFactory boatmanFactory;
+
+    cout << endl;
+
+    // Soldiers* infantry = infantryFactory.createUnit();
+    // Soldiers* shieldBearer = shieldBearerFactory.createUnit();
+    Soldiers* boatman = boatmanFactory.createUnit();
+
+    cout << endl;
+
+    cout << "- Testing Calculate Functions from Factory Method:\n\n";
+
+    // Test calculateTotalHealthPerUnit
+    // cout << "Infantry Total Health: " << infantryFactory.calculateTotalHealthPerUnit() << '\n';
+    // cout << "ShieldBearer Total Health: " << shieldBearerFactory.calculateTotalHealthPerUnit() << '\n';
+    cout << "Boatman Total Health: " << boatmanFactory.calculateTotalHealthPerUnit() << '\n';
+
+    cout << endl;
+
+    // Test calculateTotalDamagePerUnit
+    // cout << "Infantry Total Damage: " << infantryFactory.calculateTotalDamagePerUnit() << '\n';
+    // cout << "ShieldBearer Total Damage: " << shieldBearerFactory.calculateTotalDamagePerUnit() << '\n';
+    cout << "Boatman Total Damage: " << boatmanFactory.calculateTotalDamagePerUnit() << '\n';
+
+    cout << endl;
+
+    // Test calculateTotalDefencePerUnit
+    //cout << "Infantry Total Defence: " << infantryFactory.calculateTotalDefencePerUnit() << '\n';
+    // cout << "ShieldBearer Total Defence: " << shieldBearerFactory.calculateTotalDefencePerUnit() << '\n';
+    cout << "Boatman Total Defence: " << boatmanFactory.calculateTotalDefencePerUnit() << '\n';
+    
+    cout << endl;
+
+    //delete memory
+ 
+}
+
+void testCareTaker() {
+        const std::string red = "\033[91m";
+    const std::string green = "\033[92m";
+    const std::string yellow = "\033[93m";
+    const std::string blue = "\033[34m";
+    const std::string purple = "\033[35m";
+    const std::string reset = "\033[0m";
+    const std::string pattern = "~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~**~*~*~*~*";
+
+
+    CareTaker care;
+    InfantryFactory infantryFactory;
+    BoatmanFactory boatManFactoty;
+
+    Soldiers *infantryUnit = infantryFactory.createUnit();
+    Soldiers *boatmanUnit = boatManFactoty.createUnit();
+
+    //printPattern(pattern, red);
+    std::cout << red << "Infantry unit before attacks Boatman unit:" << reset << std::endl;
+    std::cout << green << "Boatman unit state:" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << boatmanUnit->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << boatmanUnit->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " << reset << boatmanUnit->getDefensePerSoldier() << std::endl;
+    std::cout << purple << "Unit(s): " << reset << boatmanUnit->getAmountOfSoldiersPerUnit() << std::endl;
+
+    std::cout << green << "Save state before attack" << std::endl;
+    Memento *m = boatmanUnit->militusMemento();//create memento
+    care.addMemento(m);
+
+    //printPattern(pattern, red);
+    std::cout << red << "Infantry unit after attacks Boatman unit:" << reset << std::endl;
+    infantryUnit->Attack(boatmanUnit);
+    std::cout << green << "After attack, Boatman unit state:" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << boatmanUnit->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << boatmanUnit->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " << reset << boatmanUnit->getDefensePerSoldier() << std::endl;
+    std::cout << purple << "Unit(s): " << reset << boatmanUnit->getAmountOfSoldiersPerUnit() << std::endl;
+
+    std::cout << green << "Undo state" << std::endl;
+    boatmanUnit->vivificaMemento(care.getMemento());
+    std::cout << green << "Boatman unit state:" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << boatmanUnit->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << boatmanUnit->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " << reset << boatmanUnit->getDefensePerSoldier() << std::endl;
+    std::cout << purple << "Unit(s): " << reset << boatmanUnit->getAmountOfSoldiersPerUnit() << std::endl;
+}
 int main()
 {
-   // TestShieldBearer();
-// TestInfantry();
-   //  TestBoatman();
- TestAttacks();
+    testCareTaker();
+    
+    // TestShieldBearer();
+    // TestInfantry();
+    //  TestBoatman();
+    //  TestAttacks();
+    // testCalculateFunctions();
+
 
     return 0;
 }
@@ -105,6 +200,9 @@ void TestShieldBearer()
     std::cout << yellow << "Units: " << reset << shieldUnit3->getAmountOfSoldiersPerUnit() << std::endl;
 
     printPattern(pattern, blue);
+    //delete
+   
+
 }
 
 void TestInfantry()
@@ -264,6 +362,9 @@ void TestBoatman()
     std::cout << purple << "Units: " << reset << boatmanUnit3->getAmountOfSoldiersPerUnit() << std::endl;
 
     printPattern(pattern, yellow);
+
+    //clean memory
+
 }
 
 void TestAttacks()

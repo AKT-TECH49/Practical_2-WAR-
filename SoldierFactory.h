@@ -9,8 +9,11 @@ class Soldiers;
 
 class SoldierFactory //abstract class
 {
+    public:
+    virtual ~SoldierFactory();    
     private:
     Soldiers* soldier ;
+   
     
 
     protected:

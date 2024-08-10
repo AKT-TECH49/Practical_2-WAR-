@@ -16,8 +16,9 @@ class CareTaker
 
 
     public:
+    CareTaker();
     void addMemento( Memento* memento);
-    Memento* getMemento(int index);
+    Memento* getMemento(); //pop from memento
     ~CareTaker();
 
 };

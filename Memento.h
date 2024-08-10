@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include "State.h"
+#include "CareTaker.h"
+
 
 class Memento
 {
@@ -10,8 +12,7 @@ public:
     // Memento(State state);
     Memento(int value1, int value2, int value3, int value4, std::string &value5);
     State getState() const;
-
-    virtual ~Memento();
+    ~Memento();
     std::string getUnitName() const;
 
 private:
@@ -21,7 +22,6 @@ private:
     int defencePerSoldier;
     int amountOfSoldiersPerUnit;
     std::string unitName;
-
     State state;
     Memento();
 

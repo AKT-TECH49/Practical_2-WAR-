@@ -7,9 +7,8 @@ class Infantry : public Soldiers
 {
 public:
   Infantry(int damagePerSoldier, int defensePerSoldier);
-  virtual ~Infantry();
-  
-
+  ~Infantry();
+  // void attack(Soldiers* enemy) override;
   Soldiers *clonis() override;
 
   //getters

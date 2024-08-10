@@ -21,14 +21,12 @@ public:
     void setDefensePerSoldier(int defense) override;
     void setAmountOfSoldiersPerUnit(int i) override;
 
-    Soldiers *clonis() override;
-    ShieldBearer(int damagePerSoldier, int defencePerSoldier);
-    virtual ~ShieldBearer();
+        Soldiers *clonis() override;
+        ShieldBearer(int damagePerSoldier, int defencePerSoldier);
+        ~ShieldBearer();
 
-    void Attack(Soldiers *shieldy) override;
-    // void Attack(Infantry *infantry) override;
-    // void Attack(Boatman *boatman) override;
-    bool isAlive() override;
+        void Attack(Soldiers *shieldy) override;
+        bool isAlive() override;
 
 private:
     static int totalShieldBearer;
@@ -39,12 +37,12 @@ private:
     static int amountOfSoldiersPerUnit;
     std::string unitName;
 
-    void prepare() override;
-    void execute() override;
-    void reinforceShields();
-    void phalanxCharge();
-    void retreat() override;
-    void rest() override;
+        void prepare() override;
+        void execute() override;
+        void reinforceShields();
+        void phalanxCharge();
+        void retreat() override;
+        void rest() override;
 };
 
 #endif
