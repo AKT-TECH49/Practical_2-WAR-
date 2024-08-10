@@ -3,13 +3,6 @@
 #include "Infantry.h"
 //create constructor
 
-// void ShieldBearer::createUnit(){
-//     // implement logic to create a shieldbearer unit
-//     // this could involve creating a new unit object, setting its properties, etc.
-//     this.
-
-// }
-
 int ShieldBearer::totalShieldBearer = 0;
 
 Soldiers *ShieldBearer::clonis()
@@ -21,15 +14,18 @@ Soldiers *ShieldBearer::clonis()
 
 ShieldBearer::ShieldBearer(int damagePerSoldier, int defencePerSoldier) : Soldiers("ShieldBearer" , 0 )
 {
+    this->amountOfSoldiersPerUnit = amountOfSoldiersPerUnit + totalShieldBearer;
     totalShieldBearer++;
     this->damagePerSoldier = damagePerSoldier;
     this->defencePerSoldier = defencePerSoldier;
     this->healthPerSoldier = 100;
-    this->amountOfSoldiersPerUnit = amountOfSoldiersPerUnit + totalShieldBearer;
 }
 
 ShieldBearer::~ShieldBearer()
 {
+    totalShieldBearer--;
+    this->amountOfSoldiersPerUnit--;
+    std::cout << "Deleting Shield \n";
     delete this;
 }
 
@@ -158,9 +154,9 @@ void ShieldBearer::rest()
 }
 
 
-void ShieldBearer::Attack(Soldiers *shieldy)
+void ShieldBearer::Attack(Soldiers &shieldy)
 {
-    if(!shieldy || !shieldy->isAlive() )
+    if( !shieldy.isAlive() )
     {
         std::cout << "ShieldBearer is not alive. Boatman cannot attack." << std::endl;
         return;
@@ -168,7 +164,7 @@ void ShieldBearer::Attack(Soldiers *shieldy)
 
     double attStr;
     attStr = damagePerSoldier / 2 ;  // per punch 
-    shieldy->takeDamage(attStr);
+    shieldy.takeDamage(attStr);
   
 
 }

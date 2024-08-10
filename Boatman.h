@@ -20,11 +20,9 @@ class Boatman : public Soldiers
         int getDamagePerSoldier() const;
         int getDefensePerSoldier() const;
         int getAmountOfSoldiersPerUnit() const;
-        virtual ~Boatman();
+        ~Boatman();
 
-        void Attack(Soldiers* shieldy) override;
-        // void Attack(Infantry* infty) override;
-        // void Attack(Boatman* boaty) override;
+        void Attack(Soldiers &shieldy) override;
 
         bool isAlive() override;
 
@@ -38,9 +36,9 @@ class Boatman : public Soldiers
 
         void prepare() override ;
         void execute() override;
-        void deployBomb(const std::string &bombType);
-        void provideBattleIntel();
-        void broadcastMessage(const std::string &message);
+        // void deployBomb(const std::string &bombType);
+        // void provideBattleIntel();
+        // void broadcastMessage(const std::string &message);
         int calculateRepairAmount(int currentHealth);
         void retreat() override;
         void rest() override ;

@@ -41,7 +41,7 @@ public:
 
 
     //actions:
-    virtual void Attack(Soldiers* shieldB) = 0 ;
+    virtual void Attack(Soldiers &shieldB) = 0 ;
     // virtual void Attack(Infantry* infaty) = 0 ;
     // virtual void Attack(Boatman* boaty) = 0;
     virtual bool isAlive() = 0 ;

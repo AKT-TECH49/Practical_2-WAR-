@@ -6,6 +6,11 @@ Soldiers * ShieldBearerFactory::createUnit()
     return new ShieldBearer(50,100);
 }
 
+ShieldBearerFactory::~ShieldBearerFactory()
+{
+  // delete this;
+}
+
 int ShieldBearerFactory::calculateTotalHealthPerUnit()
 {
    ShieldBearer* shieldBearer = static_cast<ShieldBearer*>(createUnit());

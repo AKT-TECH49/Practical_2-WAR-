@@ -41,7 +41,6 @@ Memento::Memento(int value1 , int value2 , int value3,int value4 , std::string& 
 
 Memento::~Memento()
 {
-    delete this;
 }
 
 std::string Memento::getUnitName() const

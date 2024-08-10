@@ -10,6 +10,7 @@ Soldiers::Soldiers(std::string unitName, int amountOfSoldiersPerUnit)
 Soldiers::~Soldiers()
 {
     std::cout << "Soldiers destructor" << std::endl;
+    this->amountOfSoldiersPerUnit;
     delete this;
 }
 

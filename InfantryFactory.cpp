@@ -7,6 +7,11 @@ Soldiers *InfantryFactory::createUnit()
     return new Infantry(100,80);
 }
 
+InfantryFactory::~InfantryFactory()
+{
+   //delete this;
+}
+
 int InfantryFactory::calculateTotalHealthPerUnit()
 {
    Infantry* infantry = static_cast<Infantry*>(createUnit());

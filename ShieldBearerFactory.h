@@ -11,6 +11,7 @@ class ShieldBearerFactory : public SoldierFactory
 {
      public:
      Soldiers* createUnit() override;
+     ~ShieldBearerFactory();
 
 
      

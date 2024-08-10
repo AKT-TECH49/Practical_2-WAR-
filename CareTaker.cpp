@@ -1,6 +1,6 @@
 #include "CareTaker.h"
 
-void CareTaker::addMemento( Memento* memento)
+void CareTaker::addMemento(Memento* memento)
 {
     mementos.push_back(memento);  //store a copy of the memento in the CareTaker
 }

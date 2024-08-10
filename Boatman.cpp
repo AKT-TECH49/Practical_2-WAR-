@@ -10,12 +10,11 @@ int Boatman::totalBoatmen = 0;
 
 Boatman::Boatman(int damagePerSoldier, int defensePerSoldier) : Soldiers("BoatMan" , 0)
 {
+    this->amountOfSoldiersPerUnit = amountOfSoldiersPerUnit + totalBoatmen;
     totalBoatmen++;
-    this->amountOfSoldiersPerUnit = amountOfSoldiersPerUnit + totalBoatmen ;
     this->damagePerSoldier = damagePerSoldier;
     this->defensePerSoldier = defensePerSoldier;
     this->healthPerSoldier  = 100;
-
 }
 
 Soldiers *Boatman::clonis()
@@ -48,12 +47,14 @@ int Boatman::getAmountOfSoldiersPerUnit() const
 Boatman::~Boatman()
 {
     totalBoatmen--;
+    this->amountOfSoldiersPerUnit = amountOfSoldiersPerUnit - 1;
+    std::cout << "Deleting boat \n";
     delete this;
 }
 
-void Boatman::Attack(Soldiers *shieldy)
+void Boatman::Attack(Soldiers &shieldy)
 {
-    if(!shieldy || !shieldy->isAlive() )
+    if(!shieldy.isAlive() )
     {
         std::cout << "ShieldBearer is not alive. Boatman cannot attack." << std::endl;
         return;
@@ -61,7 +62,7 @@ void Boatman::Attack(Soldiers *shieldy)
 
     int attStr;
     attStr = this->getDamagePerSoldier() / 2 ;  // per punch 
-    shieldy->takeDamage(attStr);
+    shieldy.takeDamage(attStr);
 
 
 }

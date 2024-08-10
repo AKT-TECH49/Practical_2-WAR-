@@ -8,18 +8,64 @@
 #include "Boatman.h"
 #include "BoatmanFactory.h"
 
+using namespace std;
+
 void TestShieldBearer();
 void TestInfantry();
 void TestBoatman();
 
 void TestAttacks();
 
+
+void testCalculateFunctions() {
+    //InfantryFactory infantryFactory;
+    // ShieldBearerFactory shieldBearerFactory;
+    BoatmanFactory boatmanFactory;
+
+    cout << endl;
+
+    // Soldiers* infantry = infantryFactory.createUnit();
+    // Soldiers* shieldBearer = shieldBearerFactory.createUnit();
+    Soldiers* boatman = boatmanFactory.createUnit();
+
+    cout << endl;
+
+    cout << "- Testing Calculate Functions from Factory Method:\n\n";
+
+    // Test calculateTotalHealthPerUnit
+    // cout << "Infantry Total Health: " << infantryFactory.calculateTotalHealthPerUnit() << '\n';
+    // cout << "ShieldBearer Total Health: " << shieldBearerFactory.calculateTotalHealthPerUnit() << '\n';
+    cout << "Boatman Total Health: " << boatmanFactory.calculateTotalHealthPerUnit() << '\n';
+
+    cout << endl;
+
+    // Test calculateTotalDamagePerUnit
+    // cout << "Infantry Total Damage: " << infantryFactory.calculateTotalDamagePerUnit() << '\n';
+    // cout << "ShieldBearer Total Damage: " << shieldBearerFactory.calculateTotalDamagePerUnit() << '\n';
+    cout << "Boatman Total Damage: " << boatmanFactory.calculateTotalDamagePerUnit() << '\n';
+
+    cout << endl;
+
+    // Test calculateTotalDefencePerUnit
+    //cout << "Infantry Total Defence: " << infantryFactory.calculateTotalDefencePerUnit() << '\n';
+    // cout << "ShieldBearer Total Defence: " << shieldBearerFactory.calculateTotalDefencePerUnit() << '\n';
+    cout << "Boatman Total Defence: " << boatmanFactory.calculateTotalDefencePerUnit() << '\n';
+    
+    cout << endl;
+
+    //delete memory
+ 
+}
+
+
 int main()
 {
-    //TestShieldBearer();
-    //  TestInfantry();
-     // TestBoatman();
+    TestShieldBearer();
+    TestInfantry();
+     TestBoatman();
      TestAttacks();
+    testCalculateFunctions();
+
 
     return 0;
 }
@@ -105,6 +151,9 @@ void TestShieldBearer()
     std::cout << yellow << "Amount of soldiers per unit: " << reset << shieldUnit3->getAmountOfSoldiersPerUnit() << std::endl;
 
     printPattern(pattern, blue);
+    //delete
+   
+
 }
 
 void TestInfantry()
@@ -173,8 +222,7 @@ void TestInfantry()
 
     printPattern(pattern, red);
     // Clean up
-    // delete shieldUnit;
-    // delete savedState;
+  
 }
 
 void TestBoatman()
@@ -254,6 +302,9 @@ void TestBoatman()
     std::cout << purple << "Amount of units: " << reset << boatmanUnit3->getAmountOfSoldiersPerUnit() << std::endl;
 
     printPattern(pattern, yellow);
+
+    //clean memory
+
 }
 
 
@@ -293,7 +344,7 @@ void TestAttacks()
 
     printPattern(pattern, red);
     std::cout << red << "Infantry unit attacks Boatman unit:" << reset << std::endl;
-    infantryUnit->Attack(boatmanUnit);
+    infantryUnit->Attack(*boatmanUnit);
     std::cout << green << "After attack, Boatman unit state:" << reset << std::endl;
     std::cout << purple << "Health per soldier: " << reset << boatmanUnit->getHealthPerSoldier() << std::endl;
     std::cout << purple << "Damage per soldier: " << reset << boatmanUnit->getDamagePerSoldier() << std::endl;
@@ -302,7 +353,7 @@ void TestAttacks()
 
     printPattern(pattern, red);
     std::cout << red << "Boatman unit attacks Infantry unit:" << reset << std::endl;
-    boatmanUnit->Attack(infantryUnit);
+    boatmanUnit->Attack(*infantryUnit);
     
     std::cout << green << "After attack, Infantry unit state:" << reset << std::endl;
     std::cout << purple << "Health per soldier: " << reset << infantryUnit->getHealthPerSoldier() << std::endl;
@@ -312,6 +363,9 @@ void TestAttacks()
 
     printPattern(pattern, green);
     
+
+    //delete memory
+   
     
 
 

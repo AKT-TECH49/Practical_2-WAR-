@@ -9,8 +9,11 @@ class Soldiers;
 
 class SoldierFactory //abstract class
 {
+    public:
+    virtual ~SoldierFactory();    
     private:
     Soldiers* soldier ;
+   
     
 
     protected:
@@ -20,8 +23,7 @@ class SoldierFactory //abstract class
     virtual int calculateTotalDamagePerUnit()=0;
    virtual  int calculateTotalDefencePerUnit()=0;
    //std::string calculateTotalSpecialAbilityPerUnit();
-
-
+    
 };
 
 

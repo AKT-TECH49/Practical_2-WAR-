@@ -8,11 +8,20 @@ int Infantry::totalInfantry = 0;
 
 Infantry::Infantry(int damagePerSoldier, int defensePerSoldier) : Soldiers("Infantry" , 0)
 {
-    totalInfantry++;
+    
     this->healthPerSoldier = 100;
     this->amountOfSoldiersPerUnit = totalInfantry;
+    totalInfantry++;
     this->damagePerSoldier = damagePerSoldier;
     this->defensePerSoldier = defensePerSoldier;
+}
+
+Infantry::~Infantry()
+{
+    totalInfantry--;
+    this->amountOfSoldiersPerUnit--;
+    std::cout << "Deleting INf \n";
+    delete this;
 }
 
 Soldiers *Infantry::clonis()
@@ -140,9 +149,9 @@ void Infantry::rest()
 }
 
 
-void Infantry::Attack(Soldiers *shieldy)
+void Infantry::Attack(Soldiers &shieldy)
 {
-    if(!shieldy || !shieldy->isAlive() )
+    if( !shieldy.isAlive() )
     {
         std::cout << "ShieldBearer is not alive. Boatman cannot attack." << std::endl;
         return;
@@ -150,9 +159,11 @@ void Infantry::Attack(Soldiers *shieldy)
 
     double attStr;
     attStr = damagePerSoldier / 2 ;  // per punch 
-    shieldy->takeDamage(attStr);
+    shieldy.takeDamage(attStr);
 
 }
+
+
 
 // void Infantry::Attack(Infantry* infantry)
 // {

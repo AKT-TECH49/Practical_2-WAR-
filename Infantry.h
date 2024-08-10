@@ -9,7 +9,7 @@ public:
   // void createUnit() override;
 
   Infantry(int damagePerSoldier, int defensePerSoldier);
-  // ~Infantry();
+  ~Infantry();
   // void attack(Soldiers* enemy) override;
   Soldiers *clonis() override;
   int getHealthPerSoldier() const;
@@ -17,7 +17,9 @@ public:
   int getDefensePerSoldier() const;
   int getAmountOfSoldiersPerUnit() const;
 
-  void Attack(Soldiers *shieldy) override;
+  int calculateRepairAmount(int currentHealth);
+
+  void Attack(Soldiers &shieldy) override;
   // void Attack(Infantry *infantry) override;
   // void Attack(Boatman *boatman) override;
   bool isAlive() override;
