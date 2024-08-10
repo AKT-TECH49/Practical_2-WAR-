@@ -17,8 +17,8 @@ public:
   int getDamagePerSoldier() ;
   int getDefensePerSoldier();
   int getAmountOfSoldiersPerUnit();
+  int calculateRepairAmount(int currentHealth);
   void subByOne();
-
 
   //Setters
   void setHealthPerSoldier(int i) override;
