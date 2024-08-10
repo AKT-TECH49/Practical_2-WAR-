@@ -23,7 +23,7 @@ ShieldBearer::ShieldBearer(int damagePerSoldier, int defencePerSoldier) : Soldie
 
 ShieldBearer::~ShieldBearer()
 {
-    totalShieldBearer--;
+    // totalShieldBearer--;
     this->amountOfSoldiersPerUnit--;
     std::cout << "Deleting Shield \n";
     delete this;

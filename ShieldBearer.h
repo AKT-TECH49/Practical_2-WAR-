@@ -25,7 +25,7 @@ public:
         ShieldBearer(int damagePerSoldier, int defencePerSoldier);
         ~ShieldBearer();
 
-        void Attack(Soldiers &shieldy) override;
+        void Attack(Soldiers *shieldy) override;
         bool isAlive() override;
 
 private:

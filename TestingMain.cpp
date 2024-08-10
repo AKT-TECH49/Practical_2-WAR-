@@ -369,7 +369,7 @@ void TestAttacks()
 
     printPattern(pattern, red);
     std::cout << red << "Infantry unit attacks Boatman unit:" << reset << std::endl;
-    infantryUnit->Attack(*boatmanUnit);
+    infantryUnit->Attack(boatmanUnit);
     std::cout << green << "After attack, Boatman unit state:" << reset << std::endl;
     std::cout << purple << "Health of soldier: " << reset << boatmanUnit->getHealthPerSoldier() << std::endl;
     std::cout << purple << "Damage of soldier: " << reset << boatmanUnit->getDamagePerSoldier() << std::endl;

@@ -47,7 +47,7 @@ Boatman::~Boatman()
     delete this;
 }
 
-void Boatman::Attack(Soldiers &shieldy)
+void Boatman::Attack(Soldiers *shieldy)
 {
 
     if (!shieldy || !shieldy->isAlive())
