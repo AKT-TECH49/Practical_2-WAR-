@@ -27,7 +27,7 @@ void Soldiers::disengage()
     rest();
 }
 
-Memento *Soldiers::militusMemento()
+Memento *Soldiers::militusMemento() // Creates a memento containing a snapshot of its current state
 {
 
     state.amountOfSoldiersPerUnit = getAmountOfSoldiersPerUnit();
@@ -38,7 +38,7 @@ Memento *Soldiers::militusMemento()
     return new Memento(state.healthPerSoldier, state.damagePerSoldier, state.defencePerSoldier, state.amountOfSoldiersPerUnit, unitName);
 }
 
-void Soldiers::vivificaMemento(Memento *memento)
+void Soldiers::vivificaMemento(Memento *memento) // Restores its state from the memento object
 {
     /* this->state = memento->getState();*/ // private
     State state = memento->getState();

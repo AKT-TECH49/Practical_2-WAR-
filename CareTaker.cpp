@@ -1,14 +1,22 @@
 #include "CareTaker.h"
 
+CareTaker::CareTaker()
+{
+}
+
 void CareTaker::addMemento(Memento *memento)
 {
   mementos.push_back(memento); // store a copy of the memento in the CareTaker
 }
 
-Memento *CareTaker::getMemento(int index)
+Memento *CareTaker::getMemento()
 {
-  // get index
-  return mementos.at(index);
+  Memento* m = mementos.front();
+
+  mementos.erase(mementos.begin()); //pop off memento vector
+
+
+  return m;
 }
 
 CareTaker::~CareTaker()
