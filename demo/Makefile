@@ -11,7 +11,7 @@ SDL2_CFLAGS := $(shell sdl2-config --cflags)
 SDL2_LDFLAGS := $(shell sdl2-config --libs) -lSDL2_image -lSDL2_ttf
 
 # Source files for the main project & demo 
-SRC = Soldiers.cpp SoldierFactory.cpp Infantry.cpp InfantryFactory.cpp Boatman.cpp BoatmanFactory.cpp ShieldBearer.cpp ShieldBearerFactory.cpp Memento.cpp CareTaker.cpp
+SRC = ../Soldiers.cpp ../SoldierFactory.cpp ../Infantry.cpp ../InfantryFactory.cpp ../Boatman.cpp ../BoatmanFactory.cpp ../ShieldBearer.cpp ../ShieldBearerFactory.cpp ../Memento.cpp ../CareTaker.cpp ../State.cpp Map.cpp
 OBJ = $(SRC:.cpp=.o)
 
 # Demo sources
