@@ -31,5 +31,5 @@ int BoatmanFactory::calculateTotalNumOfUnits()
 {
    Boatman *boatman = static_cast<Boatman *>(createUnit());
    boatman->subByOne();
-   return boatman->getAmountOfSoldiersPerUnit();
+   return boatman->getAmountOfSoldiersPerUnit();//COOKED MFAN
 }

@@ -8,7 +8,7 @@ class Infantry : public Soldiers
 public:
   Infantry(int damagePerSoldier, int defensePerSoldier);
   ~Infantry();
-  // void attack(Soldiers* enemy) override;
+
   Soldiers *clonis() override;
 
   //getters
