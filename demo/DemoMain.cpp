@@ -19,6 +19,7 @@
 #include <vector>
 #include <sstream>
 
+using namespace std;
 // Constants for window dimensions
 const int WINDOW_WIDTH = 1024;
 const int WINDOW_HEIGHT = 1024;
@@ -51,12 +52,12 @@ int  numBlueBoat;
 int  numRedShield;
 int  numBlueShield;
 
-int RedAttack = RedInfAttack + RedShieldAttack + RedBoatAttack;
-int BlueAttack = BlueInfAttack + BlueShieldAttack + BlueBoatAttack;
-int RedHealth = RedBoatHealth + RedShieldHealth + RedInfHealth;
-int BlueHealth = BlueBoatHealth + BlueShieldHealth + BlueInfHealth;
-int RedDefence = RedBoatDefence + RedShieldDefence + RedInfDefence;
-int BlueDefence = BlueBoatDefence + BlueShieldDefence + BlueInfDefence;
+int RedAttack;
+int BlueAttack;
+int RedHealth;
+int BlueHealth;
+int RedDefence;
+int BlueDefence;
 
 // Struct to manage SDL objects
 struct SDLContext {
@@ -224,6 +225,13 @@ void renderSprites(SDLContext &context) {
     numRedInf = Redinf.calculateTotalNumOfUnits();
     numRedShield = Redsh.calculateToTalNumUnits();
 
+    RedAttack = RedInfAttack + RedShieldAttack + RedBoatAttack;
+    BlueAttack = BlueInfAttack + BlueShieldAttack + BlueBoatAttack;
+    RedHealth = RedBoatHealth + RedShieldHealth + RedInfHealth;
+    BlueHealth = BlueBoatHealth + BlueShieldHealth + BlueInfHealth;
+    RedDefence = RedBoatDefence + RedShieldDefence + RedInfDefence;
+    BlueDefence = BlueBoatDefence + BlueShieldDefence + BlueInfDefence;
+
    
  // Load textures for each soldier type and team
     SDL_Surface* redInfSurface = IMG_Load("demo/assets/tankpngred.png");
@@ -382,31 +390,309 @@ void cleanup(SDLContext &context) {
     SDL_Quit();
 }
 
+
+void printPattern(const std::string &pattern, const std::string &color)
+{
+    std::cout << color << pattern << "\033[0m" << std::endl;
+}
+
+void testFactoryMethod();
+void testTemplateMethod();
+void testMementoMethod();
+void testPrototypeMethod();
+
+void testFactoryMethod()
+{
+    //Create 
+    InfantryFactory infantryFactory;
+    ShieldBearerFactory shieldBearerFactory;
+    BoatmanFactory boatmanFactory;
+
+   std::cout << std::endl;
+
+    Soldiers *infantry = infantryFactory.createUnit();
+    Soldiers *shieldBearer = shieldBearerFactory.createUnit();
+    Soldiers *boatman = boatmanFactory.createUnit();
+
+    std::cout << endl;
+
+   std::cout << "- Testing Calculate Functions from Factory Method:\n\n";
+
+    // Test calculateTotalHealthPerUnit
+   std::cout << "Infantry Total Health: " << infantryFactory.calculateTotalHealthPerUnit() << '\n';
+   std::cout << "ShieldBearer Total Health: " << shieldBearerFactory.calculateTotalHealthPerUnit() << '\n';
+    std::cout << "Boatman Total Health: " << boatmanFactory.calculateTotalHealthPerUnit() << '\n';
+
+    std::cout<< endl;
+
+    // Test calculateTotalDamagePerUnit
+    std::cout << "Infantry Total Damage: " << infantryFactory.calculateTotalDamagePerUnit() << '\n';
+    std::cout << "ShieldBearer Total Damage: " << shieldBearerFactory.calculateTotalDamagePerUnit() << '\n';
+    std::cout << "Boatman Total Damage: " << boatmanFactory.calculateTotalDamagePerUnit() << '\n';
+
+    std::cout << endl;
+
+    // Test calculateTotalDefencePerUnit
+   std::cout << "Infantry Total Defence: " << infantryFactory.calculateTotalDefencePerUnit() << '\n';
+    std::cout << "ShieldBearer Total Defence: " << shieldBearerFactory.calculateTotalDefencePerUnit() << '\n';
+    std::cout << "Boatman Total Defence: " << boatmanFactory.calculateTotalDefencePerUnit() << '\n';
+
+   std::cout << endl;
+
+    std::cout << "Boatman Total units: " << boatmanFactory.calculateTotalNumOfUnits() << "\n";
+    std::cout << "ShieldBearer Total units: " << shieldBearerFactory.calculateToTalNumUnits() << "\n";
+   std::cout << "Infantry Total units: " << infantryFactory.calculateTotalNumOfUnits() << "\n";
+}
+
+void testTemplateMethod()
+{
+    //engage and disengage
+    const std::string red = "\033[31m";
+    const std::string green = "\033[32m";
+    const std::string blue = "\033[34m";
+    const std::string yellow = "\033[33m";
+    const std::string reset = "\033[0m";
+    const std::string pattern = "#############################";
+
+    InfantryFactory factory1;
+    BoatmanFactory factory2;
+    ShieldBearerFactory factory3;
+
+    Soldiers* shieldy = factory3.createUnit();
+    Soldiers* boaty = factory2.createUnit();
+    Soldiers* fantry = factory1.createUnit();
+
+
+    std::cout<<yellow<<" INFANTRY IS ENGAGING: " <<std::endl;
+    fantry->engage();
+    printPattern(pattern, blue);
+    std::cout<<yellow<<"INFANTRY IS DISENGAGING: "<<std::endl;
+    fantry->disengage();
+    printPattern(pattern, blue);
+
+    std::cout<<yellow<<" BOATMAN IS ENGAGING: " <<std::endl;
+    boaty->engage();
+    printPattern(pattern, yellow);
+    std::cout<<yellow<<" BOATMAN IS DISENGAGING: "<<std::endl;
+    boaty->disengage();
+
+    std::cout<<yellow<<" SHIELDBEARER IS ENGAGING: " <<std::endl;
+    shieldy->engage();
+    printPattern(pattern, green);
+    std::cout<<yellow<<"SHIELDBEARER IS DISENGAGING: "<<std::endl;
+    shieldy->disengage();
+
+
+}
+
+void testMementoMethod()
+{
+    const std::string red = "\033[91m";
+    const std::string green = "\033[92m";
+    const std::string yellow = "\033[93m";
+    const std::string blue = "\033[34m";
+    const std::string purple = "\033[35m";
+    const std::string reset = "\033[0m";
+    const std::string pattern = "*~*~*~*~*~*~*~~*~";
+    
+    InfantryFactory inf;
+    BoatmanFactory boat;
+    ShieldBearerFactory shield;
+    CareTaker care;
+
+    Soldiers* shieldy = shield.createUnit();
+    Soldiers* boaty = boat.createUnit();
+    Soldiers* fantry = inf.createUnit();
+
+    
+    printPattern(pattern, red);
+    std::cout << red << " Infantry  unit state before attack :" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << fantry->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << fantry->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " << reset << fantry->getDefensePerSoldier() << std::endl;
+    std::cout << purple << "Unit(s): " << reset << fantry->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, red);
+
+    printPattern(pattern , yellow);
+    std::cout << red << "Boatman unit state before attack :" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << boaty->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << boaty->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " <<reset <<boaty->getDefensePerSoldier()<<std::endl;
+    std::cout << purple << "Unit(s): " << reset << boaty->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, yellow);
+
+    printPattern(pattern, green);
+    std::cout << red << "ShieldBearer unit state before attack :" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << shieldy->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << shieldy->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " <<reset<<shieldy->getDefensePerSoldier()<<std::endl;
+    std::cout << purple << "Unit(s): " << reset << shieldy->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, green);
+
+ 
+    Memento *saveB = boaty->militusMemento();
+    care.addMemento(saveB);
+    fantry->Attack(boaty);
+    std::cout << yellow << "Boatman unit state after attack :" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << boaty->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << boaty->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " <<reset << boaty->getDefensePerSoldier() <<std::endl;
+    std::cout << purple << "Unit(s): " << reset << boaty->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, green);
+
+    //restore:
+    Memento* restB = care.getMemento();
+    boaty->vivificaMemento(restB);
+    std::cout << yellow << "Boatman unit state after restoration :" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << boaty->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << boaty->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " <<reset<<boaty->getDefensePerSoldier()<<std::endl;
+    std::cout << purple << "Unit(s): " << reset << boaty->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, green);
+     
+
+     Memento * saveF = fantry->militusMemento();
+     care.addMemento(saveF);
+    fantry->vivificaMemento(care.getMemento());
+    std::cout << yellow << "Infantry unit state after restoration :" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << fantry->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << fantry->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " <<reset <<fantry->getDefensePerSoldier()<<std::endl;
+    std::cout << purple << "Unit(s): " << reset << fantry->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, red);
+
+
+    Memento* saveS = shieldy->militusMemento();
+    care.addMemento(saveS);
+    boaty->Attack(shieldy);
+    std::cout << yellow << "ShieldBearer unit state after attack :" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << shieldy->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << shieldy->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " <<reset<<shieldy->getDefensePerSoldier()<<std::endl;
+    std::cout << purple << "Unit(s): " << reset << shieldy->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, green);
+    //restore:
+    Memento* restS = care.getMemento();
+    shieldy->vivificaMemento(restS);
+    std::cout << yellow << "ShieldBearer unit state after restoration :" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << shieldy->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << shieldy->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " << reset<<shieldy->getDefensePerSoldier()<<std::endl;
+    std::cout << purple << "Unit(s): " << reset << shieldy->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, green);
+    //attack again
+   fantry->Attack(shieldy);
+    std::cout << blue<< "ShieldBearer unit state after attack again :" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << shieldy->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << shieldy->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: "<<reset <<shieldy->getDefensePerSoldier()<<std::endl;
+    std::cout << purple << "Unit(s): " << reset << shieldy->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, green);
+    //attack again
+}
+
+void testPrototypeMethod()
+{
+    const std::string blue = "\033[96m";
+    const std::string green = "\033[35m";
+    const std::string purple  = "\033[91m";
+    const std::string yellow = "\033[33m";
+    const std::string reset = "\033[0m";
+    const std::string pattern = "......................";
+
+    ShieldBearerFactory sF;
+    InfantryFactory iF ;
+    BoatmanFactory bF ;
+
+    Soldiers* shld = sF.createUnit();
+    Soldiers* inf = iF.createUnit();
+    Soldiers* btm = bF.createUnit();
+
+    Soldiers * cloneShld = shld->clonis();
+    Soldiers * cloneInf = inf->clonis();
+    Soldiers * cloneBtm = btm->clonis();
+
+    //display:
+    std::cout << yellow << "Original ShieldBearer unit:" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << shld->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << shld->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " << reset << shld->getDefensePerSoldier() << std::endl;
+    std::cout << purple << "Unit(s): " << reset << shld->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, blue);
+
+    std::cout << yellow << "Cloned ShieldBearer unit:" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << cloneShld->getHealthPerSoldier() <<std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << cloneShld->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " << reset << cloneShld->getDefensePerSoldier() << std::endl;
+    std::cout << purple << "Unit(s): " << reset << cloneShld->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, blue);
+    std::cout << yellow << "Original Infantry unit:" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << inf->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << inf->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " << reset << inf->getDefensePerSoldier() <<std::endl;
+    std::cout << purple << "Unit(s): " << reset << inf->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, blue);
+
+    std::cout << yellow << "Cloned Infantry unit:" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << cloneInf->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << cloneInf->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " << reset << cloneInf->getDefensePerSoldier() << std::endl;
+    std::cout << purple << "Unit(s): " << reset << cloneInf->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern,blue);
+    std::cout << yellow << "Original Boatman unit:" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << btm->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << btm->getDamagePerSoldier() << std::endl;
+    std::cout << purple << "Defense of soldier: " << reset<<btm->getDefensePerSoldier()<<std::endl;
+    std::cout << purple << "Unit(s): " << reset << btm->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, blue);
+
+    std::cout << yellow << "Cloned Boatman unit:" << reset << std::endl;
+    std::cout << purple << "Health of soldier: " << reset << cloneBtm->getHealthPerSoldier() << std::endl;
+    std::cout << purple << "Damage of soldier: " << reset << cloneBtm->getDamagePerSoldier()<<std::endl;
+    std::cout << purple << "Defense of soldier: " << reset << cloneBtm->getDefensePerSoldier()<<std::endl;
+    std::cout << purple << "Unit(s): " << reset << cloneBtm->getAmountOfSoldiersPerUnit() << std::endl;
+    printPattern(pattern, blue);
+
+}
+
 // Main function
 int main(int argc, char* argv[]) {
-    SDLContext context;
 
-    if (!initializeSDL(context)) {
-        return 1;
-    }
+    bool demo = false;
 
-    // Load resources
-    context.mapTexture = loadTexture("demo/assets/amcharts.pixelMap.png", context.renderer);
-    context.spriteTexture = loadTexture("demo/assets/shieldpng.png", context.renderer);
-    if (!context.mapTexture || !context.spriteTexture) {
+    if(demo) {
+        SDLContext context;
+
+        if (!initializeSDL(context)) {
+            return 1;
+        }
+
+        // Load resources
+        context.mapTexture = loadTexture("demo/assets/amcharts.pixelMap.png", context.renderer);
+        context.spriteTexture = loadTexture("demo/assets/shieldpng.png", context.renderer);
+        if (!context.mapTexture || !context.spriteTexture) {
+            cleanup(context);
+            return 1;
+        }
+
+
+        SDL_Texture* redTeamText = NULL;
+        SDL_Texture* blueTeamText = NULL;
+
+
+        // Run the main game loop
+        gameLoop(context, redTeamText, blueTeamText);
+
         cleanup(context);
-        return 1;
+
+    } else {
+        testFactoryMethod();
+        testTemplateMethod();
+        testPrototypeMethod();
+        testMementoMethod();
     }
-
-
-    SDL_Texture* redTeamText = NULL;
-    SDL_Texture* blueTeamText = NULL;
-
-
-    // Run the main game loop
-    gameLoop(context, redTeamText, blueTeamText);
-
-    cleanup(context);
 
     return 0;
 }
+
+
