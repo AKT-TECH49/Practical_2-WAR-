@@ -109,11 +109,11 @@ int main()
 {
     testCareTaker();
     
-    // TestShieldBearer();
-    // TestInfantry();
-    //  TestBoatman();
-    //  TestAttacks();
-    // testCalculateFunctions();
+    TestShieldBearer();
+    TestInfantry();
+     TestBoatman();
+     TestAttacks();
+    testCalculateFunctions();
 
 
     return 0;
