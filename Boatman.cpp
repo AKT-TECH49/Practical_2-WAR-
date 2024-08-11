@@ -2,7 +2,6 @@
 #include "ShieldBearer.h"
 #include "Soldiers.h"
 #include "Infantry.h"
-
 #include <string>
 #include <iostream>
 
@@ -10,7 +9,7 @@ int Boatman::amountOfSoldiersPerUnit = 0;
 
 Boatman::Boatman(int damagePerSoldier, int defensePerSoldier) : Soldiers("BoatMan")
 {
-    this->amountOfSoldiersPerUnit ++;
+    this->amountOfSoldiersPerUnit++;
     this->damagePerSoldier = damagePerSoldier;
     this->defensePerSoldier = defensePerSoldier;
     this->healthPerSoldier = 100;
@@ -59,14 +58,9 @@ void Boatman::Attack(Soldiers *shieldy)
     double attStr, dmgNew;
     attStr = shieldy->getDamagePerSoldier() / 2.5; // per punch
     dmgNew = shieldy->getDamagePerSoldier() / 2;
-
     shieldy->setHealthPerSoldier(attStr);
     shieldy->setDefensePerSoldier(dmgNew);
 
-    std::cout << "Damage of enemy: " << shieldy->getDamagePerSoldier() << "\n";
-    std::cout << "Health of soldier : " << shieldy->getHealthPerSoldier() << "\n";
-    std::cout << "Defense of soldier : " << shieldy->getDefensePerSoldier() << "\n";
-    std::cout << "\n";
 }
 
 // settter
@@ -94,6 +88,7 @@ void Boatman::subByOne()
 {
     this->amountOfSoldiersPerUnit--;
 }
+
 bool Boatman::isAlive()
 {
     if (this->healthPerSoldier > 0)
@@ -108,19 +103,19 @@ bool Boatman::isAlive()
 
 void Boatman::prepare()
 {
-    std::cout << "Boatman is preparing to fight." << std::endl;
+    std::cout << "BOATMAN is preparing: " << std::endl;
 
-    // 1. Transporting Infantry and Shieldbearers
+    // 1
     std::cout << "Transporting Infantry and Shieldbearers:" << std::endl;
     std::map<int, std::pair<std::string, std::string>> units;
-    for (int i = 0; i < 10; i++) // example unit count
+    for (int i = 0; i < 10; i++)
     {
-        units[i] = std::make_pair("Infantry Soldier " + std::to_string(i + 1), "Shieldbear Soldier " + std::to_string(i + 1));
+        units[i] = std::make_pair("Infantry Soldier " + std::to_string(i + 1), "Shieldbearer Soldier " + std::to_string(i + 1));
         std::cout << "\t- " << units[i].first << " and " << units[i].second << " arrived at the battlefield." << std::endl;
     }
     std::cout << "Transportation completed." << std::endl;
 
-    // 2. Loading Equipment onto boats
+    // 2
     std::cout << "Loading Equipment onto boats:" << std::endl;
     std::vector<std::string> equipment = {"Weapons", "Shields", "Medical Supplies", "Rations"};
     std::map<int, std::vector<std::string>> boatEquipment;
@@ -131,7 +126,7 @@ void Boatman::prepare()
     }
     std::cout << "Equipment loading completed." << std::endl;
 
-    // 3. Checking and repairing boats and equipment
+    // 3
     std::cout << "Checking and repairing boats and equipment:" << std::endl;
     std::list<std::string> repairList = {"Boatman1", "Boatman3", "Boatman7"};
     std::map<std::string, int> boatman = {{"Boatman1", 30}, {"Boatman2", 60}, {"Boatman3", 20}, {"Boatman4", 50}, {"Boatman9", 90}, {"Boatman10", 55}};
@@ -154,7 +149,7 @@ void Boatman::prepare()
     }
     std::cout << "Repairs completed." << std::endl;
 
-    // 4. Setting up communication channels
+    // 4
     std::cout << "Setting up communication channels:" << std::endl;
     std::map<int, std::string> communications;
     for (int i = 0; i < 10; i++)
@@ -169,55 +164,42 @@ void Boatman::prepare()
 
 int Boatman::calculateRepairAmount(int currentHealth)
 {
-    // calculate the amount of health needed to reach 100
     return 100 - currentHealth;
-    // so we know to add what ever we have left to return to totalHealth of 100
 }
 
 void Boatman::execute()
 {
-    // I'm thinking that the boatMan can also be more invloved we can allow them to deploy bombs to the enemy at sea
-    //  and also use their position to help them with their battle plans
-    //  but I'm not sure how to implement this without creating additional classes for each action
-    //  and also how to allow them to deploy bombs without creating additional classes for each bomb
-    //  and also how to handle the communication between boatmen without creating additional classes for each communication
-    //  and also how to handle the retreat without creating additional classes for each retreat
-    //  and also how to handle the rest without creating additional classes for each rest
-    std::cout << "Boatman is executing battle plans." << std::endl;
-
-    // Deploying bombs to the enemy at sea
+    std::cout << "BOATMEN are executing all the plans set: " << std::endl;
+    //1
     std::cout << "Deploying bombs to enemy positions." << std::endl;
-    std::map<int, std::pair<std::string, int>> bombDeployment; // <Boat ID, <Target Area, Bomb Count>>
-    for (int i = 0; i < 5; i++)                                // example bomb deployment count
+    std::map<int, std::pair<std::string, int>> bombDeployment;
+    for (int i = 0; i < 5; i++)                              
     {
-        bombDeployment[i] = std::make_pair("Enemy Ship " + std::to_string(i + 1), 3); // Each boat deploys 3 bombs
+        bombDeployment[i] = std::make_pair("Enemy Ship " + std::to_string(i + 1), 3); 
         std::cout << "\t- Boat " << i + 1 << " deployed 3 bombs to " << bombDeployment[i].first << "." << std::endl;
     }
     std::cout << "Bomb deployment completed." << std::endl;
-
-    // Using positions for strategic advantage
-    std::cout << "Utilizing strategic positions for advantage." << std::endl;
-    std::map<int, std::string> strategicPositions; // <Boat ID, Position>
-    for (int i = 0; i < 10; i++)
+    //2
+    std::cout << "Utilizing strategic positions: " << std::endl;
+    std::map<int, std::string> strategicPositions; 
+    for (int i = 0; i < 8; i++)
     {
         strategicPositions[i] = "Position " + std::to_string(i + 1);
         std::cout << "\t- Boat " << i + 1 << " at " << strategicPositions[i] << " providing cover fire." << std::endl;
     }
     std::cout << "Strategic positioning completed." << std::endl;
-
-    // Coordinating attacks with communication channels
+    //3
     std::cout << "Coordinating attacks via communication channels." << std::endl;
-    std::map<int, std::string> attackCoordination; // <Boat ID, Target Area>
-    for (int i = 0; i < 10; i++)
+    std::map<int, std::string> attackCoordination; 
+    for (int i = 0; i < 8; i++)
     {
         attackCoordination[i] = "Target Area " + std::to_string(i + 1);
-        std::cout << "\t- Boat " << i + 1 << " attacking " << attackCoordination[i] << " as per communication channel." << std::endl;
+        std::cout << "\t- Boat " << i + 1 << " attacking " << attackCoordination[i] << " as per communication." << std::endl;
     }
     std::cout << "Attack coordination completed." << std::endl;
-
-    // Signaling for support and reinforcements
+    //4
     std::cout << "Signaling for support and reinforcements." << std::endl;
-    std::map<int, std::string> supportSignals; // <Boat ID, Signal Type>
+    std::map<int, std::string> supportSignals; 
     for (int i = 0; i < 5; i++)
     {
         supportSignals[i] = "Reinforcement Signal " + std::to_string(i + 1);
@@ -230,12 +212,16 @@ void Boatman::execute()
 
 void Boatman::retreat()
 {
-    std::cout << "Boatman is retreating." << std::endl;
-
+    std::cout << "BOATMAN IS RETREATING !!!!! " << std::endl;
 }
 
 void Boatman::rest()
-{   // recharge health
+{ // recharge health
+    if (this->healthPerSoldier >= 100)
+    {
+        std::cout << "Boatman's health is already at full capacity and is READY FOR BATTLE" << std::endl;
+        healthPerSoldier = 100;
+    }
     this->healthPerSoldier += 10;
     std::cout << "Boatman is resting." << std::endl;
 }

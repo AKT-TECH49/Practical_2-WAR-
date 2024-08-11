@@ -8,7 +8,6 @@
 #include <iostream>
 #include <string>
 #include <list>
-#include "State.h"
 #include "Memento.h"
 
 class Memento;
@@ -42,7 +41,7 @@ public:
 
 
     // Memento method:
-    Memento *militusMemento(); // create
+    Memento *militusMemento() const; // create
     void vivificaMemento(Memento *memento); // restore
    
 

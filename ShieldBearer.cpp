@@ -56,13 +56,12 @@ void ShieldBearer::subByOne()
 
 void ShieldBearer::prepare()
 {
-    // What they possibly do to prepare , Sharpen blades , positioning themselves on land , and gearing up:
     reinforceShields();
 }
 
 void ShieldBearer::reinforceShields()
 {
-    // Define shield reinforcement parameters
+    //1
     std::map<std::string, std::string> reinforcementTasks;
     reinforcementTasks["Layering"] = "Attaching additional layers for durability.";
     reinforcementTasks["ReinforcedEdges"] = "Strengthening shield edges to withstand strikes.";
@@ -78,14 +77,12 @@ void ShieldBearer::reinforceShields()
 
 void ShieldBearer::execute()
 {
-    std::cout << "Execution process starting..." << std::endl;
-
+    std::cout << "SHIELDBEARER EXECUTING: " << std::endl;
     phalanxCharge();
-
-    // protecting flanks
+    // 1
     std::cout << "Shieldbearers forming defensive lines on the flanks." << std::endl;
     std::map<int, std::string> flankPositions;
-    for (int i = 0; i < 5 /*some where in the map or graph*/; i++)
+    for (int i = 0; i < 5 ; i++)
     {
         flankPositions[i] = "Flank Position " + std::to_string(i + 1);
     }
@@ -94,27 +91,21 @@ void ShieldBearer::execute()
         std::cout << "\t- Shieldbearer at " << position.second << " holding the line." << std::endl;
     }
 
-    // 2. Coordinating with Other Units?
-    std::cout << "Coordinating with infantry and archers for a synchronized attack." << std::endl;
-    std::vector<std::string> units = {"Infantry", "Archers"};
+    // 2
+    std::cout << "SYNCONIZATION ATTACK" << std::endl;
+    std::vector<std::string> units = {"Infantry", "Archers","Boatman"};
     for (const auto &unit : units)
     {
         std::cout << "\t- Shieldbearers coordinating with " << unit << "." << std::endl;
     }
 
-    // 3. Engaging Enemies
+    // 3
     std::cout << "Engaging enemies attempting to breach the flanks." << std::endl;
-    std::vector<std::string> enemies = {"Enemy Cavalry", "Enemy Infantry"};
+    std::vector<std::string> enemies = {"Enemy Boatman", "Enemy Infantry"};
     for (const auto &enemy : enemies)
     {
         std::cout << "\t- Shieldbearer engaging " << enemy << "." << std::endl;
     }
-
-    // need to add the damage factors
-    // and the damage taken from enemy units
-    // and the losing soldiers
-    // and the reinforcement of the shields
-
     std::cout << "Shieldbearers have executed their battle plan." << std::endl;
 }
 
@@ -135,14 +126,17 @@ void ShieldBearer::phalanxCharge()
 
 void ShieldBearer::retreat()
 {
-    // we need to figure out a way for them to retreat can they possibly go to an empty land or join the boatman or just be more centered than at the boarders?
+    std::cout<<"SHIELDBEARERS RETREAT!!!!!!!";
+
 }
 
 void ShieldBearer::rest()
 {
-    this->healthPerSoldier += 30;
-    this->defencePerSoldier += 10;
-    std::cout << "ShieldBearers are currently resting. " << std::endl;
+    if(defencePerSoldier > 75)
+    {
+        defencePerSoldier = 75;
+    }
+    std::cout<<"ShieldBearer resting ^☺^"<<std::endl;
 }
 
 void ShieldBearer::Attack(Soldiers *shieldy)
@@ -159,11 +153,6 @@ void ShieldBearer::Attack(Soldiers *shieldy)
 
     shieldy->setHealthPerSoldier(attStr);
     shieldy->setDefensePerSoldier(dmgNew);
-
-    std::cout << "Damage of enemy: " << shieldy->getDamagePerSoldier() << "\n";
-    std::cout << "Health of soldier : " << shieldy->getHealthPerSoldier() << "\n";
-    std::cout << "Defense of soldier : " << shieldy->getDefensePerSoldier() << "\n";
-    std::cout << "\n";
 }
 
 void ShieldBearer::setHealthPerSoldier(int i)

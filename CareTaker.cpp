@@ -1,28 +1,28 @@
 #include "CareTaker.h"
 
 CareTaker::CareTaker()
-{
-}
+{}
 
 void CareTaker::addMemento(Memento *memento)
 {
-  mementos.push_back(memento); // store a copy of the memento in the CareTaker
+  mementos.push_back(memento); 
 }
 
 Memento *CareTaker::getMemento()
 {
-  Memento* m = mementos.front();
+    if (!mementos.empty())
+    {
+        Memento* memento = mementos.back();
+        mementos.pop_back();
+        return memento;
+    }
 
-  mementos.erase(mementos.begin()); //pop off memento vector
-
-
-  return m;
+    return NULL;
 }
 
 CareTaker::~CareTaker()
 {
-  for (auto memento : mementos)
-  {
-    delete memento; // deallocate the memory allocated by each Memento
-  }
+  for (Memento* memento : mementos) {
+        delete memento;
+    }
 }

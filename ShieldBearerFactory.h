@@ -19,14 +19,6 @@ class ShieldBearerFactory : public SoldierFactory
      int calculateTotalDamagePerUnit();
      int calculateTotalDefencePerUnit();
      int calculateToTalNumUnits();
-
-     // Soldier* createSoldier(const std::string& type) override {
-     //     if (type == "shieldbearer") {
-     //         return new ShieldBearer();
-     //     }
-     //     std::cerr << "Invalid soldier type: " << type << std::endl;
-     //     return nullptr;
-     // }
 };
 
 

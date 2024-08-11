@@ -7,7 +7,6 @@
 
 #include "Memento.h"
 
-class Memento ;
 
 class CareTaker 
 {
@@ -16,9 +15,9 @@ class CareTaker
 
 
     public:
-    CareTaker();
+    CareTaker() ;
     void addMemento( Memento* memento);
-    Memento* getMemento(); //pop from memento
+    Memento* getMemento(); 
     ~CareTaker();
 
 };
