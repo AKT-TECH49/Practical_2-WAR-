@@ -129,6 +129,17 @@ SDL_Texture* loadTexture(const std::string &filePath, SDL_Renderer* renderer) {
     return texture;
 }
 
+// Helper function to split text by newline
+std::vector<std::string> splitText(const std::string& text) {
+    std::vector<std::string> lines;
+    std::stringstream ss(text);
+    std::string line;
+    while (std::getline(ss, line)) {
+        lines.push_back(line);
+    }
+    return lines;
+}
+
 // Function to render text
 SDL_Texture* renderText(const std::string &message, const std::string &fontFile, SDL_Color color, int fontSize, SDL_Renderer* renderer) {
     TTF_Font *font = TTF_OpenFont(fontFile.c_str(), fontSize);
@@ -188,13 +199,27 @@ void renderSprites(SDLContext &context) {
     std::vector<Soldiers*> blueBoatman;
     std::vector<Soldiers*> blueShieldBearer;
 
-    for (int i = 0; i < 9; ++i) {
-        redInfantry.push_back(Redinf.createUnit());
-        redBoatman.push_back(Redboat.createUnit());
-        redShieldBearer.push_back(Redsh.createUnit());
-        blueInfantry.push_back(Blueinf.createUnit());
-        blueBoatman.push_back(Blueboat.createUnit());
-        blueShieldBearer.push_back(Bluesh.createUnit());
+    Soldiers* redInf1 = Redinf.createUnit();
+    Soldiers* redBoat1 = Redboat.createUnit();
+    Soldiers* redsh1 =Redsh.createUnit();
+    Soldiers* blueInf1 = Blueinf.createUnit();
+    Soldiers* blueBoat1 = Blueboat.createUnit();
+    Soldiers* blueSh1 = Bluesh.createUnit();
+
+    redInfantry.push_back(redInf1);
+    redBoatman.push_back(redBoat1);
+    redShieldBearer.push_back(redsh1);
+    blueInfantry.push_back(blueInf1);
+    blueBoatman.push_back(blueBoat1);
+    blueShieldBearer.push_back(blueSh1);
+
+    for (int i = 0; i < 4; ++i) {
+        redInfantry.push_back(redInf1->clonis());
+        redBoatman.push_back(redBoat1->clonis());
+        redShieldBearer.push_back(redsh1->clonis());
+        blueInfantry.push_back(blueInf1->clonis());
+        blueBoatman.push_back(blueBoat1->clonis());
+        blueShieldBearer.push_back(blueSh1->clonis());
     }
 
     RedInfHealth = Redinf.calculateTotalHealthPerUnit();
@@ -252,12 +277,12 @@ void renderSprites(SDLContext &context) {
     SDL_FreeSurface(blueBoatSurface);
 
     // Create sprites according to team vectors
-    std::vector<SDL_Texture*> redInfantrySprites(9, redInfTexture);
-    std::vector<SDL_Texture*> blueInfantrySprites(9, blueInfTexture);
-    std::vector<SDL_Texture*> redBoatmanSprites(9, redBoatTexture);
-    std::vector<SDL_Texture*> blueBoatmanSprites(9, blueBoatTexture);
-    std::vector<SDL_Texture*> redShieldBearerSprites(9, shieldTexture);
-    std::vector<SDL_Texture*> blueShieldBearerSprites(9, shieldTexture);
+    std::vector<SDL_Texture*> redInfantrySprites(10, redInfTexture);
+    std::vector<SDL_Texture*> blueInfantrySprites(10, blueInfTexture);
+    std::vector<SDL_Texture*> redBoatmanSprites(10, redBoatTexture);
+    std::vector<SDL_Texture*> blueBoatmanSprites(10, blueBoatTexture);
+    std::vector<SDL_Texture*> redShieldBearerSprites(10, shieldTexture);
+    std::vector<SDL_Texture*> blueShieldBearerSprites(10, shieldTexture);
 
     // Define sprite positions and sizes
     int spriteWidth = 64, spriteHeight = 64;
@@ -316,65 +341,127 @@ void renderSprites(SDLContext &context) {
 }
 
 // Function to render game stats
-void renderGameStats(SDLContext &context, SDL_Texture* redTeamText, SDL_Texture* blueTeamText) {
-    int redTeamTextWidth, redTeamTextHeight;
-    SDL_QueryTexture(redTeamText, NULL, NULL, &redTeamTextWidth, &redTeamTextHeight);
+void renderGameStats(SDLContext &context, SDL_Texture* redTeamText, SDL_Texture* blueTeamText, TTF_Font* font) {
+    int textPadding = 20; // Padding from the sides
+    int lineHeight = 20;  // Height of each line
 
-    int blueTeamTextWidth, blueTeamTextHeight;
-    SDL_QueryTexture(blueTeamText, NULL, NULL, &blueTeamTextWidth, &blueTeamTextHeight);
+    //renderSprites(context);  // This must be called in the loop after clearing and before presenting
 
-    SDL_Rect redTeamTextRect = {10, 10, redTeamTextWidth, redTeamTextHeight};
-    SDL_Rect blueTeamTextRect = {WINDOW_WIDTH - SIDE_PANEL_WIDTH + 10, 10, blueTeamTextWidth, blueTeamTextHeight};
+    // Define colors
+    SDL_Color redColor = {255, 0, 0, 255};
+    SDL_Color blueColor = {0, 0, 255, 255};
 
-    SDL_RenderCopy(context.renderer, redTeamText, NULL, &redTeamTextRect);
-    SDL_RenderCopy(context.renderer, blueTeamText, NULL, &blueTeamTextRect);
+    // Red Team text
+    std::string redText = "Red Team:\nInfantry: " + std::to_string(numRedInf) +
+                          "\nBoatman: " + std::to_string(numRedBoat) +
+                          "\nShieldbearers: " + std::to_string(numRedShield) +
+                          "\nTotal Damage: " + std::to_string(RedAttack) +
+                          "\nTotal Health: " + std::to_string(RedHealth) +
+                          "\nTotal Defense: " + std::to_string(RedDefence);
+    
+    std::vector<std::string> redLines = splitText(redText);
+
+    // Blue Team text
+    std::string blueText = "Blue Team:\nInfantry: " + std::to_string(numBlueInf) +
+                           "\nBoatman: " + std::to_string(numBlueBoat) +
+                           "\nShieldbearers: " + std::to_string(numBlueShield) +
+                           "\nTotal Damage: " + std::to_string(BlueAttack) +
+                           "\nTotal Health: " + std::to_string(BlueHealth) +
+                           "\nTotal Defense: " + std::to_string(BlueDefence);
+    
+    std::vector<std::string> blueLines = splitText(blueText);
+
+    // Render each line of Red Team text
+    int redTextY = 20; // Starting y position for the Red Team text
+    for (const auto& line : redLines) {
+        SDL_Surface* surface = TTF_RenderText_Blended(font, line.c_str(), redColor);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(context.renderer, surface);
+        SDL_Rect redTextRect = {textPadding, redTextY, surface->w, surface->h};
+        SDL_RenderCopy(context.renderer, texture, NULL, &redTextRect);
+        redTextY += surface->h + 5; // Move to the next line
+        SDL_FreeSurface(surface);
+        SDL_DestroyTexture(texture);
+    }
+
+    // Render each line of Blue Team text
+    int blueTextY = 20; // Starting y position for the Blue Team text
+    for (const auto& line : blueLines) {
+        SDL_Surface* surface = TTF_RenderText_Blended(font, line.c_str(), blueColor);
+        SDL_Texture* texture = SDL_CreateTextureFromSurface(context.renderer, surface);
+        SDL_Rect blueTextRect = {WINDOW_WIDTH - surface->w - textPadding, blueTextY, surface->w, surface->h};
+        SDL_RenderCopy(context.renderer, texture, NULL, &blueTextRect);
+        blueTextY += surface->h + 5; // Move to the next line
+        SDL_FreeSurface(surface);
+        SDL_DestroyTexture(texture);
+    }
 }
 
 // Main game loop
 void gameLoop(SDLContext &context, SDL_Texture* redTeamText, SDL_Texture* blueTeamText) {
-   bool quit = false;
+ bool quit = false;
     SDL_Event e;
 
+    SDL_Color redColor = {255, 0, 0, 255};  // Red Team color
+    SDL_Color blueColor = {0, 0, 255, 255}; // Blue Team color
+    std::string fontPath = "demo/Poppins-BlackItalic.ttf";  // Path to font
+
+    // Load the font once
+    TTF_Font* font = TTF_OpenFont(fontPath.c_str(), 16);
+    if (!font) {
+        std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+        return;
+    }
+
+    // Initial render of sprites and map, before entering the loop
+    SDL_RenderClear(context.renderer);
+    SDL_Rect mapRect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
+    SDL_RenderCopy(context.renderer, context.mapTexture, NULL, &mapRect);
+    renderSprites(context);
+    SDL_RenderPresent(context.renderer);
+
     while (!quit) {
-        // Handle events
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
         }
 
-        // Calculate stats in renderSprites
-        renderSprites(context);
-        SDL_Color redColor = {255, 0, 0, 255};  // Red Team
-        SDL_Color blueColor = {0, 0, 255, 255}; // Blue Team
+        // Calculate updated stats for rendering
+        std::string redText = "Red Team:\nInfantry: " + std::to_string(numRedInf) +
+                              "\nBoatman: " + std::to_string(numRedBoat) +
+                              "\nShieldbearers: " + std::to_string(numRedShield) +
+                              "\nTotal Damage: " + std::to_string(RedAttack) +
+                              "\nTotal Health: " + std::to_string(RedHealth) +
+                              "\nTotal Defense: " + std::to_string(RedDefence);
 
+        std::string blueText = "Blue Team:\nInfantry: " + std::to_string(numBlueInf) +
+                               "\nBoatman: " + std::to_string(numBlueBoat) +
+                               "\nShieldbearers: " + std::to_string(numBlueShield) +
+                               "\nTotal Damage: " + std::to_string(BlueAttack) +
+                               "\nTotal Health: " + std::to_string(BlueHealth) +
+                               "\nTotal Defense: " + std::to_string(BlueDefence);
 
-        std::string fontPath = "demo/Poppins-BlackItalic.ttf";  // Replace with your font path
-        std::string redText = "Red Team:\nInfantry: "+ std::to_string(numRedInf) +"\nBoatman:"+std::to_string(numRedBoat)+"\nShieldbearers: "+std::to_string(numRedShield)+"\nTotal Damage: "+std::to_string(RedAttack)+"\nTotal Health: "+std::to_string(RedHealth)+"\nTotal Defense: "+ std::to_string(RedDefence);
-        std::string blueText = "Blue Team:\nInfantry:"+ std::to_string(numBlueInf) +"\nBoatman:"+std::to_string(numBlueShield)+"\nShieldbearers: "+std::to_string(numBlueShield)+"\nTotal Damage: "+std::to_string(BlueAttack)+"\nTotal Health: "+std::to_string(BlueHealth)+"\nTotal Defense: " + std::to_string(BlueDefence);
-
-        // Update the text with the current stats
-
-        // Render text with updated stats
+        // Update text textures with the latest stats
         SDL_DestroyTexture(redTeamText);  // Free the old texture
         SDL_DestroyTexture(blueTeamText); // Free the old texture
         redTeamText = renderText(redText, fontPath, redColor, 16, context.renderer);
         blueTeamText = renderText(blueText, fontPath, blueColor, 16, context.renderer);
 
-        // Render everything
+        // Clear renderer before drawing
         SDL_RenderClear(context.renderer);
 
-        // Render map
-        SDL_Rect mapRect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
+        // Render map and sprites
         SDL_RenderCopy(context.renderer, context.mapTexture, NULL, &mapRect);
 
-        // Render the updated sprites and texts
-        renderSprites(context);
-        renderGameStats(context, redTeamText, blueTeamText);
+        //renderSprites(context); // TODO: comment out this line to show the correct stats.
+
+        // Render game stats (text)
+        renderGameStats(context, redTeamText, blueTeamText, font);
 
         SDL_RenderPresent(context.renderer);
     }
 
+    TTF_CloseFont(font);
     SDL_DestroyTexture(redTeamText);
     SDL_DestroyTexture(blueTeamText);
 }
@@ -463,23 +550,23 @@ void testTemplateMethod()
     Soldiers* fantry = factory1.createUnit();
 
 
-    std::cout<<yellow<<" INFANTRY IS ENGAGING: " <<std::endl;
+    std::cout<<yellow<<"INFANTRY IS ENGAGING: "<< reset<<std::endl;
     fantry->engage();
     printPattern(pattern, blue);
-    std::cout<<yellow<<"INFANTRY IS DISENGAGING: "<<std::endl;
+    std::cout<<yellow<<"INFANTRY IS DISENGAGING: "<< reset<<std::endl;
     fantry->disengage();
     printPattern(pattern, blue);
 
-    std::cout<<yellow<<" BOATMAN IS ENGAGING: " <<std::endl;
+    std::cout<<yellow<<" BOATMAN IS ENGAGING: "<< reset<<std::endl;
     boaty->engage();
     printPattern(pattern, yellow);
-    std::cout<<yellow<<" BOATMAN IS DISENGAGING: "<<std::endl;
+    std::cout<<yellow<<" BOATMAN IS DISENGAGING: " << reset<<std::endl;
     boaty->disengage();
 
-    std::cout<<yellow<<" SHIELDBEARER IS ENGAGING: " <<std::endl;
+    std::cout<<yellow<<" SHIELDBEARER IS ENGAGING: "<< reset<<std::endl;
     shieldy->engage();
     printPattern(pattern, green);
-    std::cout<<yellow<<"SHIELDBEARER IS DISENGAGING: "<<std::endl;
+    std::cout<<yellow<<"SHIELDBEARER IS DISENGAGING: "<< reset<<std::endl;
     shieldy->disengage();
 
 
@@ -657,12 +744,10 @@ void testPrototypeMethod()
 
 // Main function
 int main(int argc, char* argv[]) {
-
-    bool demo = false;
+    bool demo = false;// to run demo GUI
 
     if(demo) {
         SDLContext context;
-
         if (!initializeSDL(context)) {
             return 1;
         }
@@ -675,16 +760,13 @@ int main(int argc, char* argv[]) {
             return 1;
         }
 
-
         SDL_Texture* redTeamText = NULL;
         SDL_Texture* blueTeamText = NULL;
-
 
         // Run the main game loop
         gameLoop(context, redTeamText, blueTeamText);
 
         cleanup(context);
-
     } else {
         testFactoryMethod();
         testTemplateMethod();
